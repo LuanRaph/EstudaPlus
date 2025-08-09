@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "github.copilot.enable": {
         "*": false,
         "plaintext": false,
@@ -8,3 +9,7 @@
     "python-envs.defaultEnvManager": "ms-python.python:venv",
     "python-envs.pythonProjects": []
 }
+=======
+  "git.ignoreLimitWarning": true
+}
+>>>>>>> 504029685bb48917fdd1e6667c4830f2580c7df0
