@@ -10,19 +10,26 @@ from kivymd.uix.button import MDRoundFlatButton
 from kivymd.uix.pickers import MDTimePicker
 from kivymd.uix.button import MDFlatButton
 from kivy.core.window import Window
+from kivymd.uix.list import MDList, OneLineListItem, TwoLineListItem
+from kivy.uix.scrollview import ScrollView
+from random import sample
 
-# Define o layout das telas usando a linguagem KV
 
 Window.size = (375, 667)
 
 
 KV = '''
 ScreenManager:
-    Screen
+    Screen:
     Screen2:
     signup:
     functions:
     Plan_screen:
+    task_screen:
+    flash_screen:
+    progress_screen:
+    challenge_screen:
+    question_screen:
         
 
 <Screen>:
@@ -92,7 +99,7 @@ ScreenManager:
             font_size: '15sp'
             on_release: 
                 app.username()
-                root.manager.current = 'fuction-menu'
+                root.manager.current = 'function-menu'
         MDIconButton:
             icon: "arrow-left"
             size_hint: None, None
@@ -142,7 +149,7 @@ ScreenManager:
             text: 'Confirm'
             size_hint: None, None
             pos_hint: {'top': 0.40, 'center_x': 0.5}
-            on_press: root.manager.current = 'fuction-menu'
+            on_press: root.manager.current = 'function-menu'
         MDIconButton:
             icon: "arrow-left"
             size_hint: None, None
@@ -153,7 +160,7 @@ ScreenManager:
             
             
 <functions>:
-    name: 'fuction-menu'
+    name: 'function-menu'
     Image:
         source: "images/background5.jpg"
         allow_stretch: True
@@ -188,6 +195,9 @@ ScreenManager:
                 text_color: 1, 1, 1, 1
                 theme_text_color: "Custom"
                 pos_hint: {"center_x": 1.78, "center_y": 3}
+                on_press: 
+                    root.manager.current = 'task' 
+                    app.random_task()
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -201,6 +211,7 @@ ScreenManager:
                 text_color: 1, 1, 1, 1
                 pos_hint: {"center_x": 3.0, "center_y": 3}
                 font_size: '25sp'
+                on_press: root.manager.current = 'flash'
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -213,6 +224,7 @@ ScreenManager:
                 theme_text_color: "Custom"
                 text_color: 1, 1, 1, 1
                 pos_hint: {"center_x": 0.5, "center_y": 2}
+                on_press: root.manager.current = 'progress'
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -225,6 +237,7 @@ ScreenManager:
                 theme_text_color: "Custom"
                 text_color: 1, 1, 1, 1
                 pos_hint: {"center_x": 1.78, "center_y": 2}
+                on_press: root.manager.current = 'challenge'
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -237,6 +250,7 @@ ScreenManager:
                 text_color: 1, 1, 1, 1
                 theme_text_color: "Custom"
                 pos_hint: {"center_x": 3.0, "center_y": 2}
+                on_press: root.manager.current = 'question-sc'
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -273,6 +287,7 @@ ScreenManager:
                 pos_hint: {"center_y": 5, "center_x": 1.77}
                 md_bg_color: 1, 0, 0, 1
                 radius: [20, 20, 20, 20]
+            
 
                 
 <Plan_screen>:
@@ -322,8 +337,141 @@ ScreenManager:
             text: '+ Select'
             pos_hint: {'center_x': 0.83, 'center_y': 0.75}
             on_press: app.text_hours()
+        MDIconButton:
+            icon: "arrow-left"
+            size_hint: None, None
+            size: "80dp", "80dp"
+            user_font_size: "94sp"
+            pos_hint: {"left": 1, 'top': 0.97}
+            on_press: root.manager.current = 'function-menu'
+        MDTextField:
+            id: text_matery
+            hint_text: 'Task'
+            width: 300
+            height: 50
+            mode: "round"
+            pos_hint: {'top': 0.64, 'center_x': 0.5}
+            size_hint: None, None
+            on_text_validate: app.add_matery()
+        MDIconButton:
+            id: add_matery
+            icon: "plus"
+            size_hint: None, None
+            size: "80dp", "80dp"
+            user_font_size: "94sp"
+            pos_hint: {"right": 1, 'top': 0.653}
+            on_release: app.add_matery()
         
+        MDBoxLayout:
+            size_hint: None, None
+            size: '340dp', '340dp'
+            md_bg_color: 1, 0, 0, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+            radius: [20, 20, 20, 20]
+
+        ScrollView:
+            pos_hint: {'center_x': 0.55, 'center_y': 0.30}
+            size_hint: 1, 0.5
+            MDList:
+                id: lista
+
+<task_screen>:
+    name: 'task'
+    Image:
+        source: "images/background5.jpg"
+        allow_stretch: True
+        keep_ratio: False
+        size_hint: 1, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    FloatLayout:
+        size_hint: None, None
+        MDIconButton:
+            icon: "arrow-left"
+            size_hint: None, None
+            size: "80dp", "80dp"
+            pos_hint: {'center_x': 0.3, 'center_y': 6.2}
+            on_press: root.manager.current = 'function-menu'
+
+        ScrollView:
+            pos_hint: {'center_x': 1.9, 'center_y': 2.5}
+            size_hint: 3, 6
+            MDList:
+                id: list_2
+
+        MDLabel:
+            text: "Lista de"
+            pos_hint: {'center_y': 5.9, 'center_x': 1.5}
+            font_size: '24sp'
         
+        MDLabel:
+            text: "Tarefas"
+            pos_hint: {'center_x': 2.4, 'center_y': 5.9}
+            font_size: '24sp'
+            
+
+<flash_screen>:
+    name: 'flash'
+    Image:
+        source: "images/background5.jpg"
+        allow_stretch: True
+        keep_ratio: False
+        size_hint: 1, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    FloatLayout:
+        size_hint: None, None
+        MDIconButton:
+            icon: "arrow-left"
+            size: "80dp", "80dp"
+            pos_hint: {'center_x': 0.3, 'center_y': 6.2}
+            on_press: root.manager.current = 'function-menu'
+    
+<progress_screen>:
+    name: 'progress'
+    Image:
+        source: "images/background5.jpg"
+        allow_stretch: True
+        keep_ratio: False
+        size_hint: 1, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    FloatLayout:
+        size_hint: None, None
+        MDIconButton:
+            icon: "arrow-left"
+            size: "80dp", "80dp"
+            pos_hint: {'center_x': 0.3, 'center_y': 6.2}
+            on_press: root.manager.current = 'function-menu'
+
+<challenge_screen>:
+    name: 'challenge'
+    Image:
+        source: "images/background5.jpg"
+        allow_stretch: True
+        keep_ratio: False
+        size_hint: 1, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    FloatLayout:
+        size_hint: None, None
+        MDIconButton:
+            icon: "arrow-left"
+            size: "80dp", "80dp"
+            pos_hint: {'center_x': 0.3, 'center_y': 6.2}
+            on_press: root.manager.current = 'function-menu'
+
+<question_screen>:
+    name: 'question-sc'
+    Image:
+        source: "images/background5.jpg"
+        allow_stretch: True
+        keep_ratio: False
+        size_hint: 1, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    FloatLayout
+        size_hint: None, None
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_x': 0.3, 'center_y': 6.2}
+            size: "80dp", "80dp"
+            on_press: root.manager.current = 'function-menu'
             
 
             
@@ -331,20 +479,28 @@ ScreenManager:
 '''
 
 #telas
-class Screen(Screen):
-    pass
 
-class Screen2(Screen):
-    pass
+class task_screen(Screen): pass
+
+class Screen2(Screen): pass
     
-class signup(Screen):
-    pass
+class signup(Screen): pass
    
-class functions(Screen):
-    pass
+class functions(Screen): pass
 
-class Plan_screen(Screen):
-    pass
+class Plan_screen(Screen): pass
+
+class Screen(Screen): pass
+
+class flash_screen(Screen): pass
+
+class progress_screen(Screen): pass 
+
+class challenge_screen(Screen): pass
+
+class question_screen(Screen): pass
+
+
 
 
 
@@ -380,7 +536,27 @@ class MyApp(MDApp):
         hour4 = hour2.replace("0", "")
         print(f"Horario de inicio: {hour.replace("0", "")} horario final {hour2.replace("0", "")} e tempo estimativo: horas {int(hour4) - int(hour3)}")
 
-    
+    def add_matery(self):
+        texto = self.root.get_screen('Plan').ids.text_matery.text.strip()
+        if texto:
+            self.root.get_screen('Plan').ids.lista.add_widget(
+                OneLineListItem(text=texto)
+            )
+            self.root.get_screen('Plan').ids.text_matery.text = ""
+
+    def random_task(self):
+        desc = ["Fique 30 minutos no aplicativo", "Faça 10 questões", "Estude por 1 hora", "Faça 3 flash-cards do que estudou hoje", "Faça 5 Questões", "Conclua as três tarefas", "Faça 15 questões"]
+        txt_num = sample(desc, k=3)
+        self.root.get_screen('task').ids.list_2.clear_widgets()
+        for i, txt_desc in enumerate(txt_num, 1):
+            self.root.get_screen('task').ids.list_2.add_widget (
+            TwoLineListItem(text=f"Tarefa {i}", secondary_text=txt_desc)
+                )
+
+
+
+
+
 
 
     
