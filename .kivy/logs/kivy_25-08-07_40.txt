@@ -1,0 +1,37 @@
+[INFO   ] Logger: Record log in C:\Users\pc\.kivy\logs\kivy_25-08-07_40.txt
+[INFO   ] deps: Successfully imported "kivy_deps.angle" 0.4.0
+[INFO   ] deps: Successfully imported "kivy_deps.glew" 0.3.1
+[INFO   ] deps: Successfully imported "kivy_deps.sdl2" 0.8.0
+[INFO   ] Kivy: v2.3.1
+[INFO   ] Kivy: Installed at "C:\Users\pc\Estuda-\.venv\Lib\site-packages\kivy\__init__.py"
+[INFO   ] Python: v3.13.6 (tags/v3.13.6:4e66535, Aug  6 2025, 14:36:00) [MSC v.1944 64 bit (AMD64)]
+[INFO   ] Python: Interpreter at "C:\Users\pc\Estuda-\.venv\Scripts\python.exe"
+[INFO   ] Logger: Purge log fired. Processing...
+[INFO   ] Logger: Purge finished!
+[INFO   ] Factory: 195 symbols loaded
+[INFO   ] KivyMD: 1.2.0, git-Unknown, 2025-05-02 (installed at "C:\Users\pc\Estuda-\.venv\Lib\site-packages\kivymd\__init__.py")
+[WARNING] KivyMD: Version 1.2.0 is deprecated and is no longer supported. Use KivyMD version 2.0.0 from the master branch (pip install https://github.com/kivymd/KivyMD/archive/master.zip)
+[INFO   ] Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+[INFO   ] Text: Provider: sdl2
+[INFO   ] Window: Provider: sdl2
+[INFO   ] Window: Activate GLES2/ANGLE context
+[INFO   ] GL: Using the "OpenGL" graphics system
+[INFO   ] GL: Backend used <angle_sdl2>
+[INFO   ] GL: OpenGL version <b'OpenGL ES 2.0.0 (ANGLE 2.1.21998 git hash: 2eea91f8f0b2)'>
+[INFO   ] GL: OpenGL vendor <b'Google Inc. (Intel)'>
+[INFO   ] GL: OpenGL renderer <b'ANGLE (Intel, Intel(R) HD Graphics (0x00000046) Direct3D11 vs_4_0 ps_4_0, D3D11-8.15.10.2900)'>
+[INFO   ] GL: OpenGL parsed version: 2, 0
+[INFO   ] GL: Shading version <b'OpenGL ES GLSL ES 1.00 (ANGLE 2.1.21998 git hash: 2eea91f8f0b2)'>
+[INFO   ] GL: Texture max size <8192>
+[INFO   ] GL: Texture max units <16>
+[INFO   ] Window: auto add sdl2 input provider
+[INFO   ] Window: virtual keyboard not allowed, single mode, not docked
+[INFO   ] Clipboard: Provider: winctypes
+[WARNING] stderr: <string>:30: SyntaxWarning: invalid escape sequence '\R'
+[WARNING] stderr: <string>:58: SyntaxWarning: invalid escape sequence '\R'
+[WARNING] stderr: <string>:106: SyntaxWarning: invalid escape sequence '\R'
+[WARNING] Deprecated property "<BooleanProperty name=allow_stretch>" of object "<kivy.uix.image.Image object at 0x00000220806E4BB0>" was accessed, it will be removed in a future version
+[WARNING] Deprecated property "<BooleanProperty name=keep_ratio>" of object "<kivy.uix.image.Image object at 0x00000220806E4BB0>" was accessed, it will be removed in a future version
+[INFO   ] GL: NPOT texture support is available
+[INFO   ] Base: Start application main loop
+[INFO   ] Base: Leaving application in progress...
