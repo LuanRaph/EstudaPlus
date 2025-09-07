@@ -1,5 +1,6 @@
 import os
 os.environ['KIVY_GL_BACKEND'] = 'angle_sdl2'
+import json
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.uix.button import MDIconButton
@@ -14,7 +15,12 @@ from kivymd.uix.button import MDFlatButton
 from kivy.core.window import Window
 from kivymd.uix.list import MDList, OneLineListItem, TwoLineListItem
 from kivy.uix.scrollview import ScrollView
-from random import sample
+from kivymd.uix.chip import MDChip
+from kivy.clock import Clock
+from kivy.uix.progressbar import ProgressBar
+from kivymd.uix.boxlayout import MDBoxLayout
+from random import sample, randint
+from kivy.metrics import dp
 
 
 Window.size = (375, 667)
@@ -28,10 +34,11 @@ ScreenManager:
     functions:
     Plan_screen:
     task_screen:
-    flash_screen:
+    flash_card_screen:
+    criacao_cards
     progress_screen:
     challenge_screen:
-    question_screen:
+    settings_screen:
         
 
 <Screen>:
@@ -56,8 +63,9 @@ ScreenManager:
             size_hint: None, None
             pos_hint: {'center_x': 0.5, 'top': 0.40}
             font_size: '25sp'
-            on_press: root.manager.current = 'sign'
-            
+            on_press: 
+                root.manager.current = 'sign'
+                app.motivacion_text()
         
 
 
@@ -208,12 +216,12 @@ ScreenManager:
                         pos: self.pos
 
             MDIconButton:
-                icon: "cards-outline"
+                icon: "cards"
                 theme_text_color: "Custom"
                 text_color: 1, 1, 1, 1
                 pos_hint: {"center_x": 3.0, "center_y": 3}
                 font_size: '25sp'
-                on_press: root.manager.current = 'flash'
+                on_press: root.manager.current = 'cards'
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -239,7 +247,9 @@ ScreenManager:
                 theme_text_color: "Custom"
                 text_color: 1, 1, 1, 1
                 pos_hint: {"center_x": 1.78, "center_y": 2}
-                on_press: root.manager.current = 'challenge'
+                on_press: 
+                    app.challenge()
+                    root.manager.current = 'challenge'
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -248,7 +258,7 @@ ScreenManager:
                         pos: self.pos
 
             MDIconButton:
-                icon: "file-document-multiple-outline"
+                icon: "settings-helper"
                 text_color: 1, 1, 1, 1
                 theme_text_color: "Custom"
                 pos_hint: {"center_x": 3.0, "center_y": 2}
@@ -269,8 +279,8 @@ ScreenManager:
                 pos_hint: {"center_x": 2.073, "center_y": 2.6}
 
             MDLabel:
-                text: "Flash-cards"
-                pos_hint: {"center_x": 3.094, "center_y": 2.6}
+                text: "Flash Card"
+                pos_hint: {"center_x": 3.14, "center_y": 2.6}
 
             MDLabel:
                 text: "Progress"
@@ -281,15 +291,16 @@ ScreenManager:
                 pos_hint: {"center_x": 1.9, "center_y": 1.6}
 
             MDLabel: 
-                text: "Questions"
-                pos_hint: {"center_x": 3.15, "center_y": 1.6}
+                text: "Settings"
+                pos_hint: {"center_x": 3.20, "center_y": 1.6}
             MDBoxLayout:
+                id: menu_t
                 size_hint: None, None
                 size: "340dp", "100dp"
                 pos_hint: {"center_y": 5, "center_x": 1.77}
                 md_bg_color: 1, 0, 0, 1
                 radius: [20, 20, 20, 20]
-            
+
 
                 
 <Plan_screen>:
@@ -411,8 +422,8 @@ ScreenManager:
             font_size: '24sp'
             
 
-<flash_screen>:
-    name: 'flash'
+<flash_card_screen>:
+    name: 'cards'
     Image:
         source: "images/background5.jpg"
         allow_stretch: True
@@ -426,7 +437,74 @@ ScreenManager:
             size: "80dp", "80dp"
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             on_press: root.manager.current = 'function-menu'
-    
+        ScrollView:
+            pos_hint: {'center_x': 1.87, 'center_y': 3}
+            size_hint: 3, 6
+            MDList:
+                id: list_card
+        MDIconButton:
+            icon: "plus"
+            theme_text_color: "Custom"
+            text_color: 1, 0, 0, 1
+            pos_hint: {'center_x': 3.3, 'center_y': 0.7}
+            on_press: root.manager.current = 'criar-cards'
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 0, 1
+                Ellipse
+                    size: self.size
+                    pos: self.pos
+                    
+
+<criacao_cards>:
+    name: 'criar-cards'
+    Image:
+        source: "images/background5.jpg"
+        allow_stretch: True
+        keep_ratio: False
+        size_hint: 1, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    MDFloatLayout:
+        orientation: 'vertical'
+        size_hint: None, None
+        md_bg_color: 1, 0, 0, 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        size: '340dp', '400dp'
+        radius: [20, 20, 20, 20]
+        MDLabel:
+            text: 'Texto da frente'
+            pos_hint: {'center_x': 0.52, 'center_y': 0.89}
+        MDLabel:
+            text: 'Texto do verso'
+            pos_hint: {'center_x': 0.52, 'center_y': 0.59}
+        MDTextField:
+            id: frente_card
+            mode: "round"
+            size: '200dp', '100dp'
+            pos_hint: {'center_y': 0.8, 'center_x': 0.499}
+        MDTextField:
+            id: verso_card
+            mode: "round"
+            size: '200dp', '100dp'
+            pos_hint: {'center_y': 0.5, 'center_x': 0.499}
+        MDRoundFlatButton:
+            text: 'Confirmar'
+            on_press: 
+                app.flash_card()
+                root.manager.current = 'cards'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+        MDLabel:
+            text: 'Criação de flash cards'
+            pos_hint: {'center_y': 3}
+            font_size: '22dp'
+            size_hint: None, None
+            text_size: None, None
+
+            
+
+
+
+
 <progress_screen>:
     name: 'progress'
     Image:
@@ -443,6 +521,8 @@ ScreenManager:
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             on_press: root.manager.current = 'function-menu'
 
+            
+
 <challenge_screen>:
     name: 'challenge'
     Image:
@@ -458,8 +538,19 @@ ScreenManager:
             size: "80dp", "80dp"
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             on_press: root.manager.current = 'function-menu'
+        MDLabel:
+            text: 'Desafios'
+            pos_hint: {'center_y': 6, 'center_x': 1.95}
+            font_size: '24sp'
+        ScrollView: 
+            pos_hint: {'center_x': 1.9, 'center_y': 2.5}
+            size_hint: 3, 6
+            MDList:
+                id: list3
 
-<question_screen>:
+
+
+<settings_screen>:
     name: 'question-sc'
     Image:
         source: "images/background5.jpg"
@@ -474,6 +565,9 @@ ScreenManager:
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             size: "80dp", "80dp"
             on_press: root.manager.current = 'function-menu'
+
+
+    
             
 
             
@@ -494,13 +588,15 @@ class Plan_screen(Screen): pass
 
 class Screen(Screen): pass
 
-class flash_screen(Screen): pass
+class flash_card_screen(Screen): pass
+
+class criacao_cards(Screen): pass
 
 class progress_screen(Screen): pass 
 
 class challenge_screen(Screen): pass
 
-class question_screen(Screen): pass
+class settings_screen(Screen): pass
 
 
 
@@ -554,6 +650,64 @@ class MyApp(MDApp):
             self.root.get_screen('task').ids.list_2.add_widget (
             TwoLineListItem(text=f"Tarefa {i}", secondary_text=txt_desc)
                 )
+            
+    def motivacion_text(self):
+        lista = ["Um passo de cada vez.",
+                 "Disciplina gera resultado.",
+                 "Seu esforço vale a pena.\n"]
+        random = randint(0, len(lista) - 1)
+        texto = MDLabel(
+            padding=15,
+            text=f" \"{lista[random]}\"",
+            pos_hint={'center_x': 3, 'center_y': 0.5},
+            )
+        self.root.get_screen('function-menu').ids.menu_t.add_widget(texto)
+
+
+    def challenge(self): 
+        desc = ["Acerte 5 questões", "Acerte 10 questões", "Resolva 3 questões"]
+        txt_random = sample(desc, k=3)
+        self.root.get_screen('challenge').ids.list3.clear_widgets()
+        for i, txt_desc in enumerate(txt_random, 1):
+            self.root.get_screen('challenge').ids.list3.add_widget (
+            TwoLineListItem(text=f"Desafio {i}", secondary_text=txt_desc)
+            )
+
+    def flash_card(self):
+        frente = self.root.get_screen('criar-cards').ids.frente_card.text
+        verso = self.root.get_screen('criar-cards').ids.verso_card.text
+        print(f"Frente = {frente}, verso = {verso}")
+        box = MDBoxLayout(
+            orientation="vertical",
+            size_hint_y=None,
+            spacing=dp(8),
+            padding=dp(12),
+            size=(dp(200), dp(400)),
+            md_bg_color=(1, 0, 0, 1),
+            radius=[12, 12, 12, 12],
+        )
+        espaco = MDBoxLayout(
+            size=(dp(200), dp(30)),
+            size_hint_y=None
+        )
+        inc = [1]
+        box.add_widget(MDLabel(text=frente, halign="center", font_style="H6"))
+        def mostrar_verso(*args):
+            verso_text = box.add_widget(MDLabel(text=verso, halign="center"))
+            box.remove_widget(btn)
+        btn = MDFillRoundFlatButton(text="Mostrar verso", halign="center", valign="bottom", pos_hint={"center_x": 0.5}, size_hint_y=None)
+        btn.bind(on_release=mostrar_verso)
+        box.add_widget(btn)
+        self.root.get_screen('cards').ids.list_card.add_widget(box)
+        self.root.get_screen('cards').ids.list_card.add_widget(espaco)
+
+    def progress(self):
+        tempo = ProgressBar(max=4, value=8)
+
+    
+
+
+
 
 
 
