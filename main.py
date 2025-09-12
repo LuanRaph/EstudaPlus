@@ -387,6 +387,27 @@ ScreenManager:
             size_hint: 1, 0.5
             MDList:
                 id: lista
+        MDBoxLayout:
+            size_hint: None, None
+            pos_hint: {'center_x': 0.5, 'center_y': 0.68}
+            size: '150dp', '50dp'
+            md_bg_color: 1, 0, 0, 1
+            radius: [12, 12, 12, 12]
+            MDLabel:
+                id: cronometro
+                text: "00:00"
+                halign: "left"
+            MDIconButton:
+                icon: "play"
+                on_release: app.start_cronometro()
+                halign: "right"
+            MDIconButton:
+                icon: "pause"
+                on_release: app.stop_cronometro()
+                halign: "right"
+
+
+
 
 <task_screen>:
     name: 'task'
@@ -514,12 +535,24 @@ ScreenManager:
         size_hint: 1, 1
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
     FloatLayout:
+        orientation: 'vertical'
         size_hint: None, None
         MDIconButton:
             icon: "arrow-left"
             size: "80dp", "80dp"
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             on_press: root.manager.current = 'function-menu'
+        MDLabel:
+            text: 'Progresso'
+            font_size: '24sp'
+            text_size: None, None
+            pos_hint: {'center_x': 1.95, 'center_y': 6}
+        MDLabel:
+            text: 'Tarefas concluidas hoje'
+            font_size: '18sp'
+            pos_hint: {'center_x': 1.9, 'center_y': 5}
+            text_size: None, None
+        
 
             
 
@@ -632,7 +665,7 @@ class MyApp(MDApp):
         hour2 = self.root.get_screen('Plan').ids.time_selected2.text.replace(":", "")
         hour3 = hour.replace("0", "")
         hour4 = hour2.replace("0", "")
-        print(f"Horario de inicio: {hour.replace("0", "")} horario final {hour2.replace("0", "")} e tempo estimativo: horas {int(hour4) - int(hour3)}")
+        print(f"Real texto: {self.root.get_screen('Plan').ids.time_selected.text} Horario de inicio: {hour.replace("0", "")} horario final {hour2.replace("0", "")} e tempo estimativo: horas {int(hour4) - int(hour3)}")
 
     def add_matery(self):
         texto = self.root.get_screen('Plan').ids.text_matery.text.strip()
@@ -648,8 +681,13 @@ class MyApp(MDApp):
         self.root.get_screen('task').ids.list_2.clear_widgets()
         for i, txt_desc in enumerate(txt_num, 1):
             self.root.get_screen('task').ids.list_2.add_widget (
-            TwoLineListItem(text=f"Tarefa {i}", secondary_text=txt_desc)
+            TwoLineListItem(text=f"Tarefa {i}", secondary_text=txt_desc),
                 )
+        
+
+            
+        
+
             
     def motivacion_text(self):
         lista = ["Um passo de cada vez.",
@@ -703,6 +741,35 @@ class MyApp(MDApp):
 
     def progress(self):
         tempo = ProgressBar(max=4, value=8)
+        
+
+
+        
+    def tempo(self):
+        self.contador = 0
+        while self.contador:
+            self.contador += 1
+            self.root.get_screen('Plan').ids.cronometro.text = str(self.contador)
+
+
+    def start_cronometro(self):
+        if not getattr(self, "_cron_event", None):
+            self._cron_event = Clock.schedule_interval(self._tick, 1)
+
+    def stop_cronometro(self):
+        if getattr(self, "_cron_event", None):
+            self._cron_event.cancel()
+            self._cron_event = None
+
+    def _tick(self, dt):
+        self.count = getattr(self, "count", 0) + 1
+        m, s = divmod(self.count, 60)
+        try:
+            self.root.get_screen('Plan').ids.cronometro.text = f"{m:02d}:{s:02d}"
+        except Exception:
+            pass
+
+        
 
     
 
