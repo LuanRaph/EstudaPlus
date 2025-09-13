@@ -4,6 +4,7 @@ import json
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.uix.button import MDIconButton
+from kivy.graphics import Color
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.uix.label import MDLabel
@@ -13,7 +14,7 @@ from kivymd.uix.button import MDRoundFlatButton
 from kivymd.uix.pickers import MDTimePicker
 from kivymd.uix.button import MDFlatButton
 from kivy.core.window import Window
-from kivymd.uix.list import MDList, OneLineListItem, TwoLineListItem
+from kivymd.uix.list import MDList, OneLineListItem, TwoLineIconListItem, TwoLineRightIconListItem
 from kivy.uix.scrollview import ScrollView
 from kivymd.uix.chip import MDChip
 from kivy.clock import Clock
@@ -172,6 +173,7 @@ ScreenManager:
 <functions>:
     name: 'function-menu'
     Image:
+        id: function_image
         source: "images/background5.jpg"
         allow_stretch: True
         keep_ratio: False
@@ -184,6 +186,7 @@ ScreenManager:
         FloatLayout:
             size_hint: None, None
             MDIconButton:
+                id: btn_0
                 icon: "book-clock"
                 theme_width: 'Custom'
                 theme_height: 'Custom'
@@ -201,6 +204,7 @@ ScreenManager:
                         pos: self.pos
 
             MDIconButton:
+                id: btn_1
                 icon: "list-box-outline"
                 text_color: 1, 1, 1, 1
                 theme_text_color: "Custom"
@@ -216,6 +220,7 @@ ScreenManager:
                         pos: self.pos
 
             MDIconButton:
+                id: btn_2
                 icon: "cards"
                 theme_text_color: "Custom"
                 text_color: 1, 1, 1, 1
@@ -230,19 +235,24 @@ ScreenManager:
                         pos: self.pos
 
             MDIconButton:
+                id: btn_3
                 icon: "trending-up"
                 theme_text_color: "Custom"
                 text_color: 1, 1, 1, 1
                 pos_hint: {"center_x": 0.5, "center_y": 2}
-                on_press: root.manager.current = 'progress'
+                on_press: 
+                    app.progress()
+                    root.manager.current = 'progress'
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
                     Ellipse:
                         size: self.size
                         pos: self.pos
+                
 
             MDIconButton:
+                id: btn_4
                 icon: "bullseye-arrow"
                 theme_text_color: "Custom"
                 text_color: 1, 1, 1, 1
@@ -258,6 +268,7 @@ ScreenManager:
                         pos: self.pos
 
             MDIconButton:
+                id: btn_5
                 icon: "settings-helper"
                 text_color: 1, 1, 1, 1
                 theme_text_color: "Custom"
@@ -306,6 +317,7 @@ ScreenManager:
 <Plan_screen>:
     name: 'Plan'
     Image:
+        id: plan_image
         source: "images/background5.jpg"
         allow_stretch: True
         keep_ratio: False
@@ -552,6 +564,17 @@ ScreenManager:
             font_size: '18sp'
             pos_hint: {'center_x': 1.9, 'center_y': 5}
             text_size: None, None
+        MDLabel:
+            text: 'Tempo de estudo'
+            font_size: '18sp'
+            text_size: None, None
+            pos_hint: {'center_x': 1.8, 'center_y': 4}
+        MDLabel:
+            text: 'Desafio diario'
+            font_size: '18sp'
+            text_size: None, None
+            pos_hint: {'center_x': 1.77, 'center_y': 3}
+
         
 
             
@@ -591,13 +614,26 @@ ScreenManager:
         keep_ratio: False
         size_hint: 1, 1
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-    FloatLayout
+    FloatLayout:
+        orientation: 'vertical'
         size_hint: None, None
         MDIconButton:
             icon: "arrow-left"
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             size: "80dp", "80dp"
             on_press: root.manager.current = 'function-menu'
+        ScrollView:
+            pos_hint: {'center_x': 1.9, 'center_y': 2.9}
+            size_hint: 3, 6
+            MDList:
+                TwoLineRightIconListItem:
+                    text: 'Tema Claro/Escuro'
+                    on_press: app.escuro()
+                    IconRightWidget:
+                        icon: "theme-light-dark"
+                        pos_hint: {'center_y': 0.4}
+
+        
 
 
     
@@ -681,9 +717,9 @@ class MyApp(MDApp):
         self.root.get_screen('task').ids.list_2.clear_widgets()
         for i, txt_desc in enumerate(txt_num, 1):
             self.root.get_screen('task').ids.list_2.add_widget (
-            TwoLineListItem(text=f"Tarefa {i}", secondary_text=txt_desc),
-                )
-        
+            TwoLineRightIconListItem(text=f"Tarefa {i}", secondary_text=txt_desc)
+            )
+            
 
             
         
@@ -708,7 +744,7 @@ class MyApp(MDApp):
         self.root.get_screen('challenge').ids.list3.clear_widgets()
         for i, txt_desc in enumerate(txt_random, 1):
             self.root.get_screen('challenge').ids.list3.add_widget (
-            TwoLineListItem(text=f"Desafio {i}", secondary_text=txt_desc)
+            TwoLineIconListItem(text=f"Desafio {i}", secondary_text=txt_desc)
             )
 
     def flash_card(self):
@@ -740,10 +776,25 @@ class MyApp(MDApp):
         self.root.get_screen('cards').ids.list_card.add_widget(espaco)
 
     def progress(self):
-        tempo = ProgressBar(max=4, value=8)
+        tarefas = ProgressBar(max=4, value=2,
+                            size_hint=(None, None),
+                            size=(dp(250), dp(50)),
+                            pos_hint={'center_x': 0.5, 'center_y': 0.7})
+        self.root.get_screen('progress').add_widget(tarefas)
+        tempo = ProgressBar(value=3, max= 4,
+                            size_hint=(None, None),
+                            size=(dp(250), dp(50)),
+                            pos_hint={'center_x': 0.5, 'center_y': 0.54} 
+                             )
+        self.root.get_screen('progress').add_widget(tempo)
+        desafios = ProgressBar(value=2, max=5,
+            size_hint=(None, None),
+            size=(dp(250), dp(50)),
+            pos_hint={'center_x': 0.5, 'center_y': 0.39}
+        )
+        self.root.get_screen('progress').add_widget(desafios)
+
         
-
-
         
     def tempo(self):
         self.contador = 0
@@ -769,16 +820,24 @@ class MyApp(MDApp):
         except Exception:
             pass
 
-        
+    def escuro(self):
+        bkg1 = "images/background8.jpg"
+        bkg2 = "images/background7.jpg"
+        bkg3 = "images/background6.jpg"
+        branco_bkg = "images/background3.jpg"
+        preto_icon = 0, 0, 0, 1
+        branco_icon = 0, 0, 0, 0
+        self.root.get_screen('Plan').ids.plan_image.source = (bkg1)
+        self.root.get_screen('function-menu').ids.function_image.source = (bkg1)
+        self.root.get_screen('function-menu').ids.btn_0.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_0.Color = (branco_icon)
+        self.root.get_screen('function-menu').ids.btn_1.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_1 
+        self.root.get_screen('function-menu').ids.btn_2.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_2
+        self.root.get_screen('function-menu').ids.btn_3.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_3 
+        self.root.get_screen('function-menu').ids.btn_4.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_4 
+        self.root.get_screen('function-menu').ids.btn_5.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_5
 
-    
 
-
-
-
-
-
-
+   
 
 
 
