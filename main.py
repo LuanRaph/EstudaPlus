@@ -1,6 +1,7 @@
 import os
 os.environ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 import json
+from kivy.app import App
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.uix.button import MDIconButton
@@ -24,10 +25,15 @@ from random import sample, randint
 from kivy.metrics import dp
 
 
+# define o tamanho da tela da janela q vai abrir
 Window.size = (375, 667)
 
 
-KV = '''
+
+#todo o codigo o kivy com kivymd
+
+
+kv = '''
 ScreenManager:
     Screen:
     Screen2:
@@ -57,7 +63,7 @@ ScreenManager:
             size_hint: None, None
             pos_hint: {'center_x': 0.5, 'top': 0.30}
             font_size: '30sp'
-            font_name: "fonts\Roboto-Medium.ttf"
+            font_name: "C:/Users/luanp/Estuda-/fonts/Roboto-Medium.ttf"
             on_press: root.manager.current = 'profile'
         MDRoundFlatButton:
             text: 'Sign up'
@@ -282,27 +288,38 @@ ScreenManager:
                         pos: self.pos
 
             MDLabel:
+                id: text_1
+                theme_text_color: "Custom"
                 text: "Planning"
                 pos_hint: {"center_x": 0.68, "center_y": 2.6}
 
             MDLabel:
+                id: text_2
                 text: "Tasks"
+                theme_text_color: "Custom"
                 pos_hint: {"center_x": 2.073, "center_y": 2.6}
 
             MDLabel:
+                id: text_3
                 text: "Flash Card"
+                theme_text_color: "Custom"
                 pos_hint: {"center_x": 3.14, "center_y": 2.6}
 
             MDLabel:
+                id: text_4
                 text: "Progress"
+                theme_text_color: "Custom"
                 pos_hint: {"center_x": 0.68, "center_y": 1.6}
 
             MDLabel:
+                id: text_5
                 text: "Challenges"
                 pos_hint: {"center_x": 1.9, "center_y": 1.6}
 
-            MDLabel: 
+            MDLabel:
+                id: text_6 
                 text: "Settings"
+                theme_text_color: "Custom"
                 pos_hint: {"center_x": 3.20, "center_y": 1.6}
             MDBoxLayout:
                 id: menu_t
@@ -363,7 +380,9 @@ ScreenManager:
             pos_hint: {'center_x': 0.83, 'center_y': 0.75}
             on_press: app.text_hours()
         MDIconButton:
+            id: arrow_plan
             icon: "arrow-left"
+            theme_text_color: "Custom"
             size_hint: None, None
             size: "80dp", "80dp"
             user_font_size: "94sp"
@@ -424,6 +443,7 @@ ScreenManager:
 <task_screen>:
     name: 'task'
     Image:
+        id: task_image
         source: "images/background5.jpg"
         allow_stretch: True
         keep_ratio: False
@@ -432,9 +452,12 @@ ScreenManager:
     FloatLayout:
         size_hint: None, None
         MDIconButton:
+            id: arrow_task
             icon: "arrow-left"
             size_hint: None, None
             size: "80dp", "80dp"
+            theme_text_color: "Custom"
+            text_color: 0, 0, 0, 100
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             on_press: root.manager.current = 'function-menu'
 
@@ -442,22 +465,24 @@ ScreenManager:
             pos_hint: {'center_x': 1.9, 'center_y': 2.5}
             size_hint: 3, 6
             MDList:
+                theme_text_color: "Custom"
                 id: list_2
+                radius: {20, 20, 20, 20}
 
         MDLabel:
-            text: "Lista de"
-            pos_hint: {'center_y': 5.9, 'center_x': 1.5}
+            id: title_task
+            text: "Lista de Tarefas"
+            pos_hint: {'center_y': 5.9, 'center_x': 1.9}
             font_size: '24sp'
+            text_size: None, None
         
-        MDLabel:
-            text: "Tarefas"
-            pos_hint: {'center_x': 2.4, 'center_y': 5.9}
-            font_size: '24sp'
+        
             
 
 <flash_card_screen>:
     name: 'cards'
     Image:
+        id: flash_img
         source: "images/background5.jpg"
         allow_stretch: True
         keep_ratio: False
@@ -466,7 +491,9 @@ ScreenManager:
     FloatLayout:
         size_hint: None, None
         MDIconButton:
+            id: arrow_flash
             icon: "arrow-left"
+            theme_text_color: "Custom"
             size: "80dp", "80dp"
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             on_press: root.manager.current = 'function-menu'
@@ -476,6 +503,7 @@ ScreenManager:
             MDList:
                 id: list_card
         MDIconButton:
+            id: plus_flash
             icon: "plus"
             theme_text_color: "Custom"
             text_color: 1, 0, 0, 1
@@ -492,6 +520,7 @@ ScreenManager:
 <criacao_cards>:
     name: 'criar-cards'
     Image:
+        id: criar_img
         source: "images/background5.jpg"
         allow_stretch: True
         keep_ratio: False
@@ -541,6 +570,7 @@ ScreenManager:
 <progress_screen>:
     name: 'progress'
     Image:
+        id: progress_img
         source: "images/background5.jpg"
         allow_stretch: True
         keep_ratio: False
@@ -550,26 +580,36 @@ ScreenManager:
         orientation: 'vertical'
         size_hint: None, None
         MDIconButton:
+            id: arrow_progress
+            theme_text_color: "Custom"
             icon: "arrow-left"
             size: "80dp", "80dp"
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             on_press: root.manager.current = 'function-menu'
         MDLabel:
+            id: text_progress
+            theme_text_color: "Custom"
             text: 'Progresso'
             font_size: '24sp'
             text_size: None, None
             pos_hint: {'center_x': 1.95, 'center_y': 6}
         MDLabel:
+            id: text_progress1
+            theme_text_color: "Custom"
             text: 'Tarefas concluidas hoje'
             font_size: '18sp'
             pos_hint: {'center_x': 1.9, 'center_y': 5}
             text_size: None, None
         MDLabel:
+            id: text_progress2
+            theme_text_color: "Custom"
             text: 'Tempo de estudo'
             font_size: '18sp'
             text_size: None, None
             pos_hint: {'center_x': 1.8, 'center_y': 4}
         MDLabel:
+            id: text_progress3
+            theme_text_color: "Custom"
             text: 'Desafio diario'
             font_size: '18sp'
             text_size: None, None
@@ -582,6 +622,7 @@ ScreenManager:
 <challenge_screen>:
     name: 'challenge'
     Image:
+        id: challenge_img
         source: "images/background5.jpg"
         allow_stretch: True
         keep_ratio: False
@@ -590,11 +631,14 @@ ScreenManager:
     FloatLayout:
         size_hint: None, None
         MDIconButton:
+            id: challenge_arrow
+            theme_text_color: "Custom"
             icon: "arrow-left"
             size: "80dp", "80dp"
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             on_press: root.manager.current = 'function-menu'
         MDLabel:
+            id: text_chl
             text: 'Desafios'
             pos_hint: {'center_y': 6, 'center_x': 1.95}
             font_size: '24sp'
@@ -602,6 +646,8 @@ ScreenManager:
             pos_hint: {'center_x': 1.9, 'center_y': 2.5}
             size_hint: 3, 6
             MDList:
+                radius: [20, 20, 20, 20]
+                theme_text_color: "Custom"
                 id: list3
 
 
@@ -609,6 +655,7 @@ ScreenManager:
 <settings_screen>:
     name: 'question-sc'
     Image:
+        id: settings_img
         source: "images/background5.jpg"
         allow_stretch: True
         keep_ratio: False
@@ -618,29 +665,24 @@ ScreenManager:
         orientation: 'vertical'
         size_hint: None, None
         MDIconButton:
+            id: arrow_settings
+            theme_text_color: "Custom"
             icon: "arrow-left"
             pos_hint: {'center_x': 0.3, 'center_y': 6.2}
             size: "80dp", "80dp"
             on_press: root.manager.current = 'function-menu'
         ScrollView:
-            pos_hint: {'center_x': 1.9, 'center_y': 2.9}
+            pos_hint: {'center_x': 1.9, 'center_y': 3}
             size_hint: 3, 6
             MDList:
+                radius: [20, 20, 20, 20]
+                id: list4
                 TwoLineRightIconListItem:
                     text: 'Tema Claro/Escuro'
                     on_press: app.escuro()
                     IconRightWidget:
                         icon: "theme-light-dark"
                         pos_hint: {'center_y': 0.4}
-
-        
-
-
-    
-            
-
-            
-            
 '''
 
 #telas
@@ -673,7 +715,7 @@ class settings_screen(Screen): pass
 
 class MyApp(MDApp):
     def build(self):
-        return Builder.load_string(KV)
+        return Builder.load_string(kv)
     
     def username(self):
         text = self.root.get_screen('profile').ids.user_text.text
@@ -717,7 +759,7 @@ class MyApp(MDApp):
         self.root.get_screen('task').ids.list_2.clear_widgets()
         for i, txt_desc in enumerate(txt_num, 1):
             self.root.get_screen('task').ids.list_2.add_widget (
-            TwoLineRightIconListItem(text=f"Tarefa {i}", secondary_text=txt_desc)
+            TwoLineRightIconListItem(id="text_list",text=f"Tarefa {i}", secondary_text=txt_desc, theme_text_color="Custom", text_color="black")
             )
             
 
@@ -820,26 +862,57 @@ class MyApp(MDApp):
         except Exception:
             pass
 
+    #modo dark
     def escuro(self):
         bkg1 = "images/background8.jpg"
         bkg2 = "images/background7.jpg"
         bkg3 = "images/background6.jpg"
         branco_bkg = "images/background3.jpg"
         preto_icon = 0, 0, 0, 1
-        branco_icon = 0, 0, 0, 0
+        branco_icon = "#FFFFFF"
         self.root.get_screen('Plan').ids.plan_image.source = (bkg1)
+        self.root.get_screen('task').ids.task_image.source = (bkg1)
+        self.root.get_screen('cards').ids.flash_img.source = (bkg1)
+        self.root.get_screen('criar-cards').ids.criar_img.source = (bkg1)
+        self.root.get_screen('progress').ids.progress_img.source = (bkg1)
+        self.root.get_screen('challenge').ids.challenge_img.source = (bkg1)
+        self.root.get_screen('question-sc').ids.settings_img.source = (bkg1)
+        #cores dos icones modo dark
         self.root.get_screen('function-menu').ids.function_image.source = (bkg1)
-        self.root.get_screen('function-menu').ids.btn_0.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_0.Color = (branco_icon)
-        self.root.get_screen('function-menu').ids.btn_1.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_1 
-        self.root.get_screen('function-menu').ids.btn_2.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_2
-        self.root.get_screen('function-menu').ids.btn_3.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_3 
-        self.root.get_screen('function-menu').ids.btn_4.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_4 
-        self.root.get_screen('function-menu').ids.btn_5.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_5
+        self.root.get_screen('function-menu').ids.btn_0.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_0.md_bg_color = (branco_icon)
+        self.root.get_screen('function-menu').ids.btn_1.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_1.md_bg_color = (branco_icon)
+        self.root.get_screen('function-menu').ids.btn_2.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_2.md_bg_color = (branco_icon)
+        self.root.get_screen('function-menu').ids.btn_3.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_3.md_bg_color = (branco_icon)
+        self.root.get_screen('function-menu').ids.btn_4.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_4.md_bg_color = (branco_icon)
+        self.root.get_screen('function-menu').ids.btn_5.text_color = (preto_icon); self.root.get_screen('function-menu').ids.btn_5.md_bg_color = (branco_icon)
+        self.root.get_screen('Plan').ids.arrow_plan.text_color = (branco_icon)
+        self.root.get_screen('cards').ids.arrow_flash.text_color = (branco_icon)
+        self.root.get_screen('progress').ids.arrow_progress.text_color = (branco_icon)
+        self.root.get_screen('challenge').ids.challenge_arrow.text_color = (branco_icon)
+        self.root.get_screen('question-sc').ids.arrow_settings.text_color = (branco_icon)
+        self.root.get_screen('cards').ids.plus_flash.md_bg_color = (branco_icon)
+        self.root.get_screen('task').ids.list_2.md_bg_color = ("#131313FF")
+        self.root.get_screen('challenge').ids.list3.md_bg_color = ("#0F0F0F")
+        self.root.get_screen('question-sc').ids.list4.md_bg_color = ("#0F0F0F")
+        self.root.get_screen('task').ids.arrow_task.text_color = (branco_icon)
+        self.root.get_screen('task').ids.title_task.color = (branco_icon)
+        self.root.get_screen('progress').ids.text_progress.color = (branco_icon)
+        self.root.get_screen('progress').ids.text_progress1.color = (branco_icon)
+        self.root.get_screen('progress').ids.text_progress2.color = (branco_icon)
+        self.root.get_screen('progress').ids.text_progress3.color = (branco_icon)
+        
+        #textos da tela de funções do modo dark
+        self.root.get_screen('challenge').ids.text_chl.color = (branco_icon)
+        self.root.get_screen('function-menu').ids.text_1.color = (branco_icon)
+        self.root.get_screen('function-menu').ids.text_2.color = (branco_icon)
+        self.root.get_screen('function-menu').ids.text_3.color = (branco_icon)
+        self.root.get_screen('function-menu').ids.text_4.color = (branco_icon)
+        self.root.get_screen('function-menu').ids.text_5.color = (branco_icon)
+        self.root.get_screen('function-menu').ids.text_6.color = (branco_icon)
+    
+        
 
-
-   
-
-
+        
 
     
 
