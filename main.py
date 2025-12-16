@@ -3,6 +3,7 @@ os.environ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 import json
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.storage.jsonstore import JsonStore
 from kivy.core.window import Window
 from kivymd.uix.button import MDIconButton
 from kivy.graphics import Color
@@ -16,6 +17,7 @@ from kivymd.uix.pickers import MDTimePicker
 from kivymd.uix.button import MDFlatButton
 from kivy.core.window import Window
 from kivymd.uix.list import MDList, OneLineListItem, TwoLineIconListItem, TwoLineRightIconListItem
+from kivymd.uix.list import IconRightWidget
 from kivy.uix.scrollview import ScrollView
 from kivymd.uix.chip import MDChip
 from kivy.clock import Clock
@@ -73,6 +75,7 @@ ScreenManager:
             on_press: 
                 root.manager.current = 'sign'
                 app.motivacion_text()
+                app.tempo()
         
 
 
@@ -142,6 +145,7 @@ ScreenManager:
             pos_hint: {'top': 1.35}
             font_name: "fonts\Roboto-Medium.ttf"
         MDTextField:
+            id: user_name
             hint_text: 'Username'
             width: 300
             height: 50
@@ -149,6 +153,7 @@ ScreenManager:
             pos_hint: {'top': 0.64, 'center_x': 0.5}
             size_hint: None, None
         MDTextField:
+            id: user_pass
             hint_text: 'Password'
             width: 300
             height: 50
@@ -156,6 +161,7 @@ ScreenManager:
             size_hint: None, None
             pos_hint: {'top': 0.57, 'center_x': 0.5}
         MDTextField:
+            id: user_pass_2
             hint_text: 'Password'
             mode: "round"
             width: 300
@@ -166,7 +172,9 @@ ScreenManager:
             text: 'Confirm'
             size_hint: None, None
             pos_hint: {'top': 0.40, 'center_x': 0.5}
-            on_press: root.manager.current = 'function-menu'
+            on_press:
+                root.manager.current = 'function-menu'
+                app.signup()
         MDIconButton:
             icon: "arrow-left"
             size_hint: None, None
@@ -687,6 +695,8 @@ ScreenManager:
 
 #telas
 
+
+
 class task_screen(Screen): pass
 
 class Screen2(Screen): pass
@@ -709,18 +719,40 @@ class challenge_screen(Screen): pass
 
 class settings_screen(Screen): pass
 
-
-
+sign = JsonStore('sign.json')
 
 
 class MyApp(MDApp):
     def build(self):
+        # inicializa store de flashcards e carrega em memória
+        self.flash_store = JsonStore('flashcards.json')
+        self.flashcards = self.load_flashcards()
         return Builder.load_string(kv)
+
+    def on_start(self):
+        # popula a UI com os flashcards salvos ao iniciar
+        try:
+            self.populate_flashcards_ui()
+        except Exception:
+            pass
     
+    
+
     def username(self):
         text = self.root.get_screen('profile').ids.user_text.text
+        passw = self.root.get_screen('profile').ids.pass_text.text
         print(f"username: {text}")
-        print(f"password: {self.root.get_screen('profile').ids.pass_text.text}")
+        print(f"password: {passw}")
+    
+
+    def signup(self):
+        user = self.root.get_screen('sign').ids.user_name.text
+        pass1 = self.root.get_screen('sign').ids.user_pass.text
+        pass2 = self.root.get_screen('sign').ids.user_pass_2.text
+        sign.put('signup', name=user, passw1=pass1, passw2=pass2)
+        if sign.exists('signup'):
+            dados = sign.get('signup')
+        print(f"name: {dados['name']}\npass: {dados['passw1']}\npass 2: {dados['passw2']}")
 
     def selector(self):
         time_dialog = MDTimePicker()
@@ -743,7 +775,15 @@ class MyApp(MDApp):
         hour2 = self.root.get_screen('Plan').ids.time_selected2.text.replace(":", "")
         hour3 = hour.replace("0", "")
         hour4 = hour2.replace("0", "")
+        tempo = int(hour3) - int(hour4)
+        if (tempo * 60) <= 60:
+            minutos = int(hour2[2:4]) - int(hour[2:4])
+        else:
+            minutos = tempo * 60
+
+        sign.put('time', qtempo=tempo, min=minutos)
         print(f"Real texto: {self.root.get_screen('Plan').ids.time_selected.text} Horario de inicio: {hour.replace("0", "")} horario final {hour2.replace("0", "")} e tempo estimativo: horas {int(hour4) - int(hour3)}")
+        print(minutos)
 
     def add_matery(self):
         texto = self.root.get_screen('Plan').ids.text_matery.text.strip()
@@ -753,16 +793,58 @@ class MyApp(MDApp):
             )
             self.root.get_screen('Plan').ids.text_matery.text = ""
 
-    def random_task(self):
-        desc = ["Fique 30 minutos no aplicativo", "Faça 10 questões", "Estude por 1 hora", "Faça 3 flash-cards do que estudou hoje", "Faça 5 Questões", "Conclua as três tarefas", "Faça 15 questões"]
-        txt_num = sample(desc, k=3)
-        self.root.get_screen('task').ids.list_2.clear_widgets()
-        for i, txt_desc in enumerate(txt_num, 1):
-            self.root.get_screen('task').ids.list_2.add_widget (
-            TwoLineRightIconListItem(id="text_list",text=f"Tarefa {i}", secondary_text=txt_desc, theme_text_color="Custom", text_color="black")
-            )
-            
 
+
+    #colocar na inicialização
+    def random_task(self):
+        conclusao_tarefas = 0 
+        nums = 10, 20, 30, 40
+        r = sample(nums, 1)[0]
+        sign.put('tarefas_t', tarefa=f"Estude {r} minutos".replace("[", ""), tempo=r)
+        dados = sign.get('tarefas_t')
+        dados_t = sign.get('time')
+        item = TwoLineRightIconListItem(
+            text=f"Tarefa 1", 
+            secondary_text=dados['tarefa'],
+        )
+        if dados_t['min'] >= dados['tempo']:
+            icon = IconRightWidget(icon="check-bold", text_color="#1EFF00", theme_text_color="Custom")
+            conclusao_tarefas += 1
+        else: 
+            icon = IconRightWidget(icon="check-bold", text_color="#000000", theme_text_color="Custom")
+        item.add_widget(icon)
+        self.root.get_screen('task').ids.list_2.clear_widgets()
+        self.root.get_screen('task').ids.list_2.add_widget(item)
+        nums2 = [1, 2, 3, 5]
+        sorteio_num = sample(nums2, 1)[0]
+        sign.put('tarefas_f', tarefa=f"Faça {sorteio_num} flash cards".replace("[", ""), quant=int(sorteio_num))
+        dados2 = sign.get('tarefas_f')
+        item2 = TwoLineRightIconListItem(text="Tarefa 2", secondary_text=dados2['tarefa'].replace("]", ""), theme_text_color='Custom')
+        try:
+            current_count = len(self.flashcards)
+        except Exception:
+            current_count = 0
+        self.current_task2_required = int(dados2['quant']) if 'quant' in dados2 else int(sorteio_num)
+        if current_count >= self.current_task2_required:
+            icon2 = IconRightWidget(icon="check-bold", theme_text_color="Custom", text_color=(0, 1, 0, 1))
+            conclusao_tarefas += 1
+        else:
+            icon2 = IconRightWidget(icon="check-bold", theme_text_color="Custom", text_color=(0, 0, 0, 1))
+        item2.add_widget(icon2)
+        self._task2_item = item2
+        self.root.get_screen('task').ids.list_2.add_widget(item2)
+        #terceira tarefa
+        nums3 = [1, 2, 3]
+        sorteio_num2 = sample(nums3, 1)[0]
+        sign.put('tarefas_n', tarefa=f"Faça {sorteio_num2} tarefas".replace("[", ""), quant=int(sorteio_num2))
+        dados3 = sign.get('tarefas_n')
+        item3 = TwoLineRightIconListItem(text="Tarefa 3", secondary_text=dados3['tarefa'].replace("]", ""))
+        if conclusao_tarefas == 2 or conclusao_tarefas == sorteio_num2:
+            icon3 = IconRightWidget(icon="check-bold", theme_text_color="Custom", text_color=(0, 1, 0, 1))
+        else:
+            icon3 = IconRightWidget(icon="check-bold", theme_text_color="Custom", text_color=(0, 0, 0, 1))
+        self.root.get_screen('task').ids.list_2.add_widget(item3)
+        item3.add_widget(icon3)
             
         
 
@@ -789,41 +871,132 @@ class MyApp(MDApp):
             TwoLineIconListItem(text=f"Desafio {i}", secondary_text=txt_desc)
             )
 
+    #def carregar(self):
+
+
+
     def flash_card(self):
         frente = self.root.get_screen('criar-cards').ids.frente_card.text
         verso = self.root.get_screen('criar-cards').ids.verso_card.text
         print(f"Frente = {frente}, verso = {verso}")
+        # salva o flashcard em memória e no JsonStore
+        if not hasattr(self, 'flashcards') or self.flashcards is None:
+            self.flashcards = []
+        # não salvar cartões vazios
+        if not (frente.strip() or verso.strip()):
+            return
+        self.flashcards.append({'frente': frente, 'verso': verso})
+        self.save_flashcards()
+        # limpa campos e volta para a tela de cards
+        self.root.get_screen('criar-cards').ids.frente_card.text = ''
+        self.root.get_screen('criar-cards').ids.verso_card.text = ''
+        # atualiza a UI
+        self.populate_flashcards_ui()
+        try:
+            self.root.manager.current = 'cards'
+        except Exception:
+            pass
+
+    def _create_flashcard_widget(self, frente, verso, index):
+        # manter mesmo tamanho da tela de criação: 340x400 (dp)
         box = MDBoxLayout(
             orientation="vertical",
             size_hint_y=None,
             spacing=dp(8),
             padding=dp(12),
-            size=(dp(200), dp(400)),
+            size=(dp(340), dp(400)),
             md_bg_color=(1, 0, 0, 1),
             radius=[12, 12, 12, 12],
         )
-        espaco = MDBoxLayout(
-            size=(dp(200), dp(30)),
-            size_hint_y=None
-        )
-        inc = [1]
-        box.add_widget(MDLabel(text=frente, halign="center", font_style="H6"))
-        def mostrar_verso(*args):
-            verso_text = box.add_widget(MDLabel(text=verso, halign="center"))
-            box.remove_widget(btn)
-        btn = MDFillRoundFlatButton(text="Mostrar verso", halign="center", valign="bottom", pos_hint={"center_x": 0.5}, size_hint_y=None)
-        btn.bind(on_release=mostrar_verso)
-        box.add_widget(btn)
-        self.root.get_screen('cards').ids.list_card.add_widget(box)
-        self.root.get_screen('cards').ids.list_card.add_widget(espaco)
+        # frente em cima
+        box.add_widget(MDLabel(text=frente, halign="center", font_style="H6", size_hint_y=None, height=dp(160)))
+        # verso abaixo (mostrado sempre, conforme pedido)
+        box.add_widget(MDLabel(text=verso, halign="center", size_hint_y=None, height=dp(160)))
+        # botoes de ações (ex: remover)
+        controls = MDBoxLayout(size_hint_y=None, height=dp(60), padding=dp(8))
+        rem = MDFillRoundFlatButton(text="Remover", pos_hint={"center_x": 0.5})
+        rem.bind(on_release=lambda *_: self.remove_flashcard(index))
+        controls.add_widget(rem)
+        box.add_widget(controls)
+        return box
+
+    def populate_flashcards_ui(self):
+        try:
+            lista = self.root.get_screen('cards').ids.list_card
+        except Exception:
+            return
+        lista.clear_widgets()
+        for i, card in enumerate(self.flashcards):
+            widget = self._create_flashcard_widget(card.get('frente', ''), card.get('verso', ''), i)
+            lista.add_widget(widget)
+            lista.add_widget(MDBoxLayout(size=(dp(200), dp(8)), size_hint_y=None))
+
+    def remove_flashcard(self, index):
+        if 0 <= index < len(self.flashcards):
+            self.flashcards.pop(index)
+            self.save_flashcards()
+            self.populate_flashcards_ui()
+
+    def load_flashcards(self):
+        if JsonStore and hasattr(self, 'flash_store') and self.flash_store.exists('flashcards'):
+            data = self.flash_store.get('flashcards')
+            return data.get('items', [])
+        # fallback: se já existir arquivo manual, tenta carregar
+        try:
+            with open('flashcards.json', 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                return data.get('items', [])
+        except Exception:
+            return []
+
+    def save_flashcards(self):
+        try:
+            self.flash_store.put('flashcards', items=self.flashcards)
+        except Exception:
+            # fallback escrevendo JSON bruto
+            try:
+                with open('flashcards.json', 'w', encoding='utf-8') as f:
+                    json.dump({'items': self.flashcards}, f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+        # após salvar, atualiza possível tarefa que depende de número de flashcards
+        try:
+            self._update_task2_icon()
+        except Exception:
+            pass
+
+    def _update_task2_icon(self):
+        # atualiza o ícone do item de tarefa 2 (feito por random_task) se existir
+        if not hasattr(self, '_task2_item') or self._task2_item is None:
+            return
+        required = getattr(self, 'current_task2_required', None)
+        if required is None:
+            return
+        current = len(self.flashcards) if hasattr(self, 'flashcards') else 0
+        # remove IconRightWidget filhos atuais
+        for child in list(self._task2_item.children):
+            if isinstance(child, IconRightWidget):
+                try:
+                    self._task2_item.remove_widget(child)
+                except Exception:
+                    pass
+        # adiciona novo ícone conforme status
+        if current >= required:
+            icon = IconRightWidget(icon="check-bold", theme_text_color="Custom", text_color=(0, 1, 0, 1))
+        else:
+            icon = IconRightWidget(icon="checkbox-blank-outline", theme_text_color="Custom", text_color=(0, 0, 0, 1))
+        self._task2_item.add_widget(icon)
+
+
 
     def progress(self):
+        dados = sign.get('time')
         tarefas = ProgressBar(max=4, value=2,
                             size_hint=(None, None),
                             size=(dp(250), dp(50)),
                             pos_hint={'center_x': 0.5, 'center_y': 0.7})
         self.root.get_screen('progress').add_widget(tarefas)
-        tempo = ProgressBar(value=3, max= 4,
+        tempo = ProgressBar(value=dados['qtempo'], max=12,
                             size_hint=(None, None),
                             size=(dp(250), dp(50)),
                             pos_hint={'center_x': 0.5, 'center_y': 0.54} 
@@ -839,10 +1012,9 @@ class MyApp(MDApp):
         
         
     def tempo(self):
-        self.contador = 0
-        while self.contador:
-            self.contador += 1
-            self.root.get_screen('Plan').ids.cronometro.text = str(self.contador)
+        self.contador = 1
+        while self.contador % 60 == 0:
+            print(self.contador)
 
 
     def start_cronometro(self):
@@ -864,6 +1036,7 @@ class MyApp(MDApp):
 
     #modo dark
     def escuro(self):
+        #plano de fundo do modo dark
         bkg1 = "images/background8.jpg"
         bkg2 = "images/background7.jpg"
         bkg3 = "images/background6.jpg"
@@ -890,18 +1063,18 @@ class MyApp(MDApp):
         self.root.get_screen('progress').ids.arrow_progress.text_color = (branco_icon)
         self.root.get_screen('challenge').ids.challenge_arrow.text_color = (branco_icon)
         self.root.get_screen('question-sc').ids.arrow_settings.text_color = (branco_icon)
+        self.root.get_screen('task').ids.arrow_task.text_color = (branco_icon)
+        #listas de tarefas
         self.root.get_screen('cards').ids.plus_flash.md_bg_color = (branco_icon)
         self.root.get_screen('task').ids.list_2.md_bg_color = ("#131313FF")
         self.root.get_screen('challenge').ids.list3.md_bg_color = ("#0F0F0F")
         self.root.get_screen('question-sc').ids.list4.md_bg_color = ("#0F0F0F")
-        self.root.get_screen('task').ids.arrow_task.text_color = (branco_icon)
-        self.root.get_screen('task').ids.title_task.color = (branco_icon)
+        #textos da tela de funções do modo dark
         self.root.get_screen('progress').ids.text_progress.color = (branco_icon)
         self.root.get_screen('progress').ids.text_progress1.color = (branco_icon)
         self.root.get_screen('progress').ids.text_progress2.color = (branco_icon)
         self.root.get_screen('progress').ids.text_progress3.color = (branco_icon)
-        
-        #textos da tela de funções do modo dark
+        self.root.get_screen('task').ids.title_task.color = (branco_icon)
         self.root.get_screen('challenge').ids.text_chl.color = (branco_icon)
         self.root.get_screen('function-menu').ids.text_1.color = (branco_icon)
         self.root.get_screen('function-menu').ids.text_2.color = (branco_icon)
