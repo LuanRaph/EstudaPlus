@@ -3,7 +3,6 @@ Estuda+ - App Estudos ENEM Android
 App mobile nativo Android feito 100% em Python + KivyMD para estudos ENEM 2026.
 
 ✨ Funcionalidades
-🔐 Login/Signup persistente
 
 ✅ 3 Tarefas diárias aleatórias
 
