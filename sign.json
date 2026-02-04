@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"signup": {"name": "", "passw1": "", "passw2": ""}, "time": {"qtempo": -75, "min": 30}, "tarefas_t": {"tarefa": "Estude 10 minutos", "tempo": 10}, "tarefas_f": {"tarefa": "Fa\u00e7a 1 flash cards", "quant": 1}, "tarefas_n": {"tarefa": "Fa\u00e7a 1 tarefas", "quant": 1}, "cont": {"times": ["caca"]}, "user_hjkjku": {"username": "hjkjku", "password": "2323"}, "current_user": {"username": "Luan"}, "user_Luan": {"username": "Luan", "password": "cabeca"}}
+=======
+{"signup": {"name": "", "passw1": "", "passw2": ""}, "time": {"qtempo": -75, "min": 30}, "tarefas_t": {"tarefa": "Estude 20 minutos", "tempo": 20}, "tarefas_f": {"tarefa": "Fa\u00e7a 1 flash cards", "quant": 1}, "tarefas_n": {"tarefa": "Fa\u00e7a 2 tarefas", "quant": 2}, "cont": {"times": ["caca"]}}
+>>>>>>> 1243d3ef10a897026682d933bf90f769b3f064b0
