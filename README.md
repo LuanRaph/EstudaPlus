@@ -21,4 +21,4 @@ App mobile nativo Android feito 100% em Python + KivyMD para estudos ENEM 2026.
 Download
 https://drive.google.com/file/d/1aYLcwddLeGtPE7dntp10Lt27M7Xu6Q76/view?usp=drive_link
 
-Luan Raphael
+Desenvolvido por Luan Raphael
