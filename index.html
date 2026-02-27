@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ConcursoPrep — Plataforma de Questões</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F8FAFC; --bg-card: #FFFFFF; --bg-card-hover: #F1F5F9;
+      --text: #0F172A; --text-secondary: #475569; --text-muted: #94A3B8;
+      --border: #E2E8F0; --border-light: #F1F5F9;
+      --primary: #2563EB; --primary-light: #DBEAFE; --primary-dark: #1D4ED8;
+      --success: #059669; --success-light: #D1FAE5; --success-dark: #047857;
+      --danger: #DC2626; --danger-light: #FEE2E2; --danger-dark: #B91C1C;
+      --warning: #D97706; --warning-light: #FEF3C7;
+      --purple: #7C3AED; --purple-light: #EDE9FE;
+      --orange: #EA580C; --orange-light: #FFF7ED;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+      --radius: 12px; --radius-lg: 16px; --radius-xl: 20px;
+      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="dark"] {
+      --bg: #0F172A; --bg-card: #1E293B; --bg-card-hover: #334155;
+      --text: #F1F5F9; --text-secondary: #CBD5E1; --text-muted: #64748B;
+      --border: #334155; --border-light: #1E293B;
+      --primary-light: #1E3A5F; --success-light: #064E3B;
+      --danger-light: #450A0A; --warning-light: #451A03;
+      --purple-light: #2E1065; --orange-light: #431407;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+      --shadow: 0 1px 3px rgba(0,0,0,0.4);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.4);
+      --shadow-xl: 0 20px 25px rgba(0,0,0,0.5);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.6; min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
+    img { max-width: 100%; }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: var(--bg-card); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(12px); background: rgba(255,255,255,0.85);
+    }
+    [data-theme="dark"] .header { background: rgba(15,23,42,0.9); }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px; max-width: 1100px; margin: 0 auto;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; }
+    .logo-icon {
+      width: 36px; height: 36px; background: var(--primary); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.1rem; font-weight: 700;
+    }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .btn-icon {
+      width: 40px; height: 40px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; transition: var(--transition);
+      color: var(--text-secondary); font-size: 1.2rem;
+    }
+    .btn-icon:hover { background: var(--bg-card-hover); color: var(--text); }
+
+    /* ===== NAV TABS ===== */
+    .nav-tabs {
+      display: flex; gap: 4px; padding: 4px; background: var(--border-light);
+      border-radius: var(--radius); margin-bottom: 28px; overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .nav-tab {
+      padding: 10px 20px; border-radius: 10px; font-size: 0.875rem;
+      font-weight: 500; color: var(--text-secondary); white-space: nowrap;
+      transition: var(--transition); flex: 1; text-align: center;
+    }
+    .nav-tab:hover { color: var(--text); background: rgba(255,255,255,0.5); }
+    [data-theme="dark"] .nav-tab:hover { background: rgba(255,255,255,0.05); }
+    .nav-tab.active {
+      background: var(--bg-card); color: var(--text); font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ===== PAGES ===== */
+    .page { display: none; animation: fadeIn 0.3s ease; }
+    .page.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
+      border-radius: var(--radius-xl); padding: 40px 36px; margin-bottom: 32px;
+      color: white; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -50%; right: -20%; width: 400px; height: 400px;
+      background: rgba(255,255,255,0.08); border-radius: 50%;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -30%; left: -10%; width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05); border-radius: 50%;
+    }
+    .hero h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: 8px; position: relative; z-index: 1; }
+    .hero p { font-size: 1rem; opacity: 0.9; position: relative; z-index: 1; max-width: 500px; }
+
+    /* ===== STATS ROW ===== */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px; margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px 16px; text-align: center; transition: var(--transition);
+    }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .stat-number { font-size: 1.75rem; font-weight: 800; color: var(--primary); }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ===== SECTION TITLE ===== */
+    .section-title {
+      font-size: 1.25rem; font-weight: 700; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-title .badge {
+      font-size: 0.7rem; background: var(--primary-light); color: var(--primary);
+      padding: 3px 10px; border-radius: 20px; font-weight: 600;
+    }
+
+    /* ===== DISCIPLINE CARDS ===== */
+    .disciplines-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px; margin-bottom: 32px;
+    }
+    .discipline-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 24px; transition: var(--transition); cursor: pointer; position: relative; overflow: hidden;
+    }
+    .discipline-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .discipline-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    }
+    .discipline-icon { font-size: 2rem; margin-bottom: 12px; }
+    .discipline-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .discipline-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; gap: 16px; margin-bottom: 14px; }
+    .discipline-topics { display: flex; flex-wrap: wrap; gap: 6px; }
+    .topic-chip {
+      font-size: 0.7rem; padding: 4px 10px; border-radius: 20px;
+      background: var(--border-light); color: var(--text-secondary); font-weight: 500;
+    }
+
+    /* ===== TOPIC LIST ===== */
+    .topic-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .topic-item {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px 20px; display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; transition: var(--transition);
+    }
+    .topic-item:hover { border-color: var(--primary); background: var(--primary-light); }
+    .topic-info h3 { font-size: 0.95rem; font-weight: 600; }
+    .topic-info p { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+    .topic-arrow { color: var(--text-muted); font-size: 1.2rem; transition: var(--transition); }
+    .topic-item:hover .topic-arrow { color: var(--primary); transform: translateX(4px); }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
+      font-size: 0.85rem; color: var(--text-muted); flex-wrap: wrap;
+    }
+    .breadcrumb a { color: var(--primary); font-weight: 500; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .sep { opacity: 0.5; }
+
+    /* ===== QUESTION CARD ===== */
+    .question-container { max-width: 800px; margin: 0 auto; }
+    .question-progress {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    }
+    .progress-bar-bg {
+      flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; background: var(--primary); border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+    .progress-text { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+
+    .question-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 32px; margin-bottom: 20px; box-shadow: var(--shadow);
+    }
+    .question-number {
+      font-size: 0.75rem; font-weight: 700; color: var(--primary);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+    }
+    .question-text { font-size: 1.05rem; font-weight: 500; line-height: 1.7; margin-bottom: 24px; }
+
+    .alternatives { display: flex; flex-direction: column; gap: 10px; }
+    .alternative {
+      display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px;
+      border: 2px solid var(--border); border-radius: var(--radius);
+      cursor: pointer; transition: var(--transition); font-size: 0.95rem; line-height: 1.5;
+    }
+    .alternative:hover:not(.disabled) { border-color: var(--primary); background: var(--primary-light); }
+    .alternative.selected { border-color: var(--primary); background: var(--primary-light); }
+    .alternative.correct { border-color: var(--success); background: var(--success-light); }
+    .alternative.incorrect { border-color: var(--danger); background: var(--danger-light); }
+    .alternative.disabled { cursor: default; opacity: 0.7; }
+    .alternative.disabled.correct { opacity: 1; }
+    .alternative.disabled.selected.incorrect { opacity: 1; }
+    .alt-letter {
+      width: 32px; height: 32px; min-width: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; background: var(--border-light);
+      color: var(--text-secondary); transition: var(--transition);
+    }
+    .alternative.selected .alt-letter { background: var(--primary); color: white; }
+    .alternative.correct .alt-letter { background: var(--success); color: white; }
+    .alternative.incorrect .alt-letter { background: var(--danger); color: white; }
+    .alt-text { padding-top: 4px; }
+
+    /* ===== EXPLANATION BOX ===== */
+    .explanation-box {
+      background: var(--success-light); border: 1px solid var(--success);
+      border-radius: var(--radius); padding: 20px 24px; margin-top: 20px;
+      animation: slideDown 0.3s ease;
+    }
+    .explanation-box.wrong { background: var(--danger-light); border-color: var(--danger); }
+    .explanation-title {
+      font-weight: 700; font-size: 0.85rem; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .explanation-title .icon-correct { color: var(--success); }
+    .explanation-title .icon-wrong { color: var(--danger); }
+    .explanation-text { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 24px; border-radius: var(--radius); font-size: 0.9rem;
+      font-weight: 600; transition: var(--transition);
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-secondary { background: var(--border-light); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: var(--bg-card-hover); }
+    .btn-success { background: var(--success); color: white; }
+    .btn-success:hover { background: var(--success-dark); }
+    .btn-danger { background: var(--danger); color: white; }
+    .btn-danger:hover { background: var(--danger-dark); }
+    .btn-lg { padding: 14px 32px; font-size: 1rem; }
+    .btn-block { width: 100%; }
+    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* ===== SIMULADO CONFIG ===== */
+    .simulado-config {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 32px; max-width: 600px; margin: 0 auto;
+    }
+    .config-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 24px; text-align: center; }
+    .config-group { margin-bottom: 20px; }
+    .config-label { font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary); }
+    .config-select, .config-input {
+      width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: var(--radius);
+      font-size: 0.95rem; font-family: inherit; background: var(--bg);
+      color: var(--text); transition: var(--transition);
+    }
+    .config-select:focus, .config-input:focus { outline: none; border-color: var(--primary); }
+    .checkbox-group { display: flex; flex-direction: column; gap: 10px; }
+    .checkbox-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      cursor: pointer; transition: var(--transition);
+    }
+    .checkbox-item:hover { background: var(--bg-card-hover); }
+    .checkbox-item.checked { border-color: var(--primary); background: var(--primary-light); }
+    .checkbox-item input[type="checkbox"] { display: none; }
+    .custom-checkbox {
+      width: 22px; height: 22px; min-width: 22px; border: 2px solid var(--border);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      transition: var(--transition); font-size: 0.8rem; color: white;
+    }
+    .checkbox-item.checked .custom-checkbox { background: var(--primary); border-color: var(--primary); }
+    .checkbox-text { font-size: 0.9rem; font-weight: 500; }
+
+    /* ===== RESULTS ===== */
+    .results-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 36px; max-width: 700px; margin: 0 auto; text-align: center;
+    }
+    .results-score {
+      width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 24px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: 2.5rem; font-weight: 900; position: relative;
+    }
+    .results-score::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 6px solid var(--border);
+    }
+    .results-score.good { color: var(--success); }
+    .results-score.good::before { border-color: var(--success); }
+    .results-score.medium { color: var(--warning); }
+    .results-score.medium::before { border-color: var(--warning); }
+    .results-score.bad { color: var(--danger); }
+    .results-score.bad::before { border-color: var(--danger); }
+    .results-score small { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+    .results-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+    .results-subtitle { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 28px; }
+    .results-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px;
+    }
+    .result-stat {
+      padding: 14px; border-radius: var(--radius); text-align: center;
+    }
+    .result-stat.correct-stat { background: var(--success-light); }
+    .result-stat.incorrect-stat { background: var(--danger-light); }
+    .result-stat.time-stat { background: var(--primary-light); }
+    .result-stat-num { font-size: 1.5rem; font-weight: 800; }
+    .result-stat.correct-stat .result-stat-num { color: var(--success); }
+    .result-stat.incorrect-stat .result-stat-num { color: var(--danger); }
+    .result-stat.time-stat .result-stat-num { color: var(--primary); }
+    .result-stat-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ===== REVIEW LIST ===== */
+    .review-list { text-align: left; margin-top: 24px; }
+    .review-item {
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 18px;
+      margin-bottom: 12px; cursor: pointer; transition: var(--transition);
+    }
+    .review-item:hover { background: var(--bg-card-hover); }
+    .review-item.review-correct { border-left: 4px solid var(--success); }
+    .review-item.review-incorrect { border-left: 4px solid var(--danger); }
+    .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .review-q-num { font-weight: 700; font-size: 0.85rem; }
+    .review-badge {
+      font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; font-weight: 600;
+    }
+    .review-badge.correct-badge { background: var(--success-light); color: var(--success); }
+    .review-badge.incorrect-badge { background: var(--danger-light); color: var(--danger); }
+    .review-text { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+    .review-detail { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .review-item.expanded .review-detail { display: block; }
+    .review-answer { font-size: 0.85rem; margin-bottom: 4px; }
+    .review-answer strong { font-weight: 600; }
+    .review-explanation { font-size: 0.85rem; color: var(--text-secondary); margin-top: 8px; line-height: 1.6; padding: 12px; background: var(--border-light); border-radius: 8px; }
+
+    /* ===== PROGRESS PAGE ===== */
+    .progress-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px; margin-bottom: 32px;
+    }
+    .progress-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .progress-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .progress-card-icon { font-size: 1.5rem; }
+    .progress-card-title { font-weight: 700; font-size: 1rem; }
+    .progress-bar-container { margin-bottom: 10px; }
+    .progress-bar-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; }
+    .progress-bar-outer { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .progress-bar-inner { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+
+    /* ===== TIMER ===== */
+    .timer-display {
+      font-size: 1.1rem; font-weight: 700; color: var(--text-secondary);
+      display: flex; align-items: center; gap: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .timer-display.warning { color: var(--danger); }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center; padding: 60px 20px; color: var(--text-muted);
+    }
+    .empty-state-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
+    .empty-state h3 { font-size: 1.1rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; }
+    .empty-state p { font-size: 0.9rem; max-width: 400px; margin: 0 auto; }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem;
+      font-weight: 600; color: var(--primary); margin-bottom: 16px; padding: 6px 0;
+      transition: var(--transition);
+    }
+    .back-btn:hover { opacity: 0.8; }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      text-align: center; padding: 32px 20px; color: var(--text-muted);
+      font-size: 0.8rem; border-top: 1px solid var(--border); margin-top: 48px;
+    }
+
+    /* ===== TOAST ===== */
+    .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 1000; display: flex; flex-direction: column; gap: 8px; }
+    .toast {
+      padding: 14px 20px; border-radius: var(--radius); font-size: 0.85rem; font-weight: 500;
+      box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; min-width: 280px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .toast-success { background: var(--success); color: white; }
+    .toast-error { background: var(--danger); color: white; }
+    .toast-info { background: var(--primary); color: white; }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .hero { padding: 28px 24px; }
+      .hero h1 { font-size: 1.35rem; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .disciplines-grid { grid-template-columns: 1fr; }
+      .question-card { padding: 24px 20px; }
+      .results-stats { grid-template-columns: 1fr; }
+      .nav-tab { padding: 8px 14px; font-size: 0.8rem; }
+      .header-inner { padding: 12px 16px; }
+      .simulado-config { padding: 24px 20px; }
+      .results-card { padding: 28px 20px; }
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* ===== SIMULADO HEADER ===== */
+    .simulado-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+    }
+    .simulado-info { display: flex; align-items: center; gap: 16px; }
+
+    /* ===== QUESTION NAV GRID ===== */
+    .question-nav-grid {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px;
+      padding: 16px; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .q-nav-btn {
+      width: 36px; height: 36px; border-radius: 8px; display: flex;
+      align-items: center; justify-content: center; font-size: 0.8rem;
+      font-weight: 600; border: 1px solid var(--border); background: var(--bg);
+      color: var(--text-secondary); transition: var(--transition);
+    }
+    .q-nav-btn:hover { border-color: var(--primary); }
+    .q-nav-btn.current { background: var(--primary); color: white; border-color: var(--primary); }
+    .q-nav-btn.answered { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+
+    /* ===== DISCIPLINE COLOR BARS ===== */
+    .discipline-card[data-color="blue"]::before { background: #2563EB; }
+    .discipline-card[data-color="purple"]::before { background: #7C3AED; }
+    .discipline-card[data-color="red"]::before { background: #DC2626; }
+    .discipline-card[data-color="green"]::before { background: #059669; }
+    .discipline-card[data-color="orange"]::before { background: #EA580C; }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--bg-card); border-radius: var(--radius-lg); padding: 32px;
+      max-width: 480px; width: 100%; box-shadow: var(--shadow-xl);
+      animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .modal h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
+    .modal p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo" onclick="navigateTo('home')">
+        <div class="logo-icon">CP</div>
+        <span>ConcursoPrep</span>
+      </a>
+      <div class="header-actions">
+        <button class="btn-icon" onclick="toggleTheme()" title="Alternar tema" aria-label="Alternar tema">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 24px; padding-bottom: 40px;">
+    <!-- NAV TABS -->
+    <nav class="nav-tabs" id="mainNav">
+      <button class="nav-tab active" data-page="home" onclick="navigateTo('home')">Início</button>
+      <button class="nav-tab" data-page="disciplinas" onclick="navigateTo('disciplinas')">Disciplinas</button>
+      <button class="nav-tab" data-page="simulado" onclick="navigateTo('simulado')">Simulado</button>
+      <button class="nav-tab" data-page="progresso" onclick="navigateTo('progresso')">Progresso</button>
+    </nav>
+
+    <!-- ===== HOME PAGE ===== -->
+    <div class="page active" id="page-home">
+      <div class="hero">
+        <h1>Prepare-se para o seu concurso</h1>
+        <p>Pratique com questões de nível médio a difícil, organizadas por disciplina e tópico. Faça simulados e acompanhe seu progresso.</p>
+      </div>
+
+      <div class="stats-row" id="homeStats"></div>
+
+      <div class="section-title">Disciplinas <span class="badge" id="disciplineCount"></span></div>
+      <div class="disciplines-grid" id="homeDisciplines"></div>
+
+      <div style="text-align:center; margin-top: 16px;">
+        <button class="btn btn-primary btn-lg" onclick="navigateTo('simulado')">Iniciar Simulado</button>
+      </div>
+    </div>
+
+    <!-- ===== DISCIPLINAS PAGE ===== -->
+    <div class="page" id="page-disciplinas">
+      <div id="disciplinasContent"></div>
+    </div>
+
+    <!-- ===== TOPIC PAGE ===== -->
+    <div class="page" id="page-topico">
+      <div id="topicoContent"></div>
+    </div>
+
+    <!-- ===== PRACTICE PAGE ===== -->
+    <div class="page" id="page-pratica">
+      <div id="praticaContent"></div>
+    </div>
+
+    <!-- ===== SIMULADO PAGE ===== -->
+    <div class="page" id="page-simulado">
+      <div id="simuladoContent"></div>
+    </div>
+
+    <!-- ===== SIMULADO RUNNING ===== -->
+    <div class="page" id="page-simulado-run">
+      <div id="simuladoRunContent"></div>
+    </div>
+
+    <!-- ===== RESULTS PAGE ===== -->
+    <div class="page" id="page-resultados">
+      <div id="resultadosContent"></div>
+    </div>
+
+    <!-- ===== PROGRESS PAGE ===== -->
+    <div class="page" id="page-progresso">
+      <div id="progressoContent"></div>
+    </div>
+  </main>
+
+  <!-- CONFIRM MODAL -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal">
+      <h3 id="modalTitle">Confirmar</h3>
+      <p id="modalText">Tem certeza?</p>
+      <div class="btn-group" style="justify-content: flex-end;">
+        <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+        <button class="btn btn-primary" id="modalConfirmBtn">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <footer class="footer">
+    ConcursoPrep — Plataforma de Questões para Concursos Públicos
+  </footer>
+
+<script>
+// ===== DATA & STATE =====
+let DATA = null;
+let state = {
+  currentPage: 'home',
+  currentDiscipline: null,
+  currentTopic: null,
+  practiceQuestions: [],
+  practiceIndex: 0,
+  practiceAnswers: [],
+  practiceRevealed: false,
+  simuladoQuestions: [],
+  simuladoIndex: 0,
+  simuladoAnswers: [],
+  simuladoRevealed: false,
+  simuladoTimer: null,
+  simuladoSeconds: 0,
+  simuladoMode: false,
+  history: []
+};
+
+// ===== PERSISTENCE =====
+function loadProgress() {
+  try {
+    const d = localStorage.getItem('concursoprep_progress');
+    return d ? JSON.parse(d) : { answered: 0, correct: 0, byDiscipline: {}, byTopic: {}, simulados: 0, totalTime: 0 };
+  } catch { return { answered: 0, correct: 0, byDiscipline: {}, byTopic: {}, simulados: 0, totalTime: 0 }; }
+}
+function saveProgress(p) { localStorage.setItem('concursoprep_progress', JSON.stringify(p)); }
+
+// ===== THEME =====
+function toggleTheme() {
+  const t = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('concursoprep_theme', t);
+}
+(function initTheme() {
+  const t = localStorage.getItem('concursoprep_theme');
+  if (t) document.documentElement.setAttribute('data-theme', t);
+})();
+
+// ===== TOAST =====
+function showToast(msg, type = 'info') {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast toast-${type}`;
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(20px)'; setTimeout(() => t.remove(), 300); }, 3000);
+}
+
+// ===== MODAL =====
+function showModal(title, text, onConfirm) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalText').textContent = text;
+  document.getElementById('confirmModal').classList.add('active');
+  document.getElementById('modalConfirmBtn').onclick = () => { closeModal(); onConfirm(); };
+}
+function closeModal() { document.getElementById('confirmModal').classList.remove('active'); }
+
+// ===== NAVIGATION =====
+function navigateTo(page, pushHistory = true) {
+  if (state.simuladoMode && page !== 'simulado-run' && page !== 'resultados') {
+    showModal('Sair do Simulado?', 'Seu progresso será perdido. Deseja realmente sair?', () => {
+      endSimulado(true);
+      navigateTo(page);
+    });
+    return;
+  }
+  if (pushHistory && state.currentPage !== page) state.history.push(state.currentPage);
+  state.currentPage = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.page === page || (page === 'topico' && t.dataset.page === 'disciplinas') || (page === 'pratica' && t.dataset.page === 'disciplinas') || (page === 'simulado-run' && t.dataset.page === 'simulado') || (page === 'resultados' && t.dataset.page === 'simulado'));
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  renderPage(page);
+}
+
+function goBack() {
+  const prev = state.history.pop();
+  if (prev) navigateTo(prev, false);
+  else navigateTo('home', false);
+}
+
+// ===== RENDER PAGES =====
+function renderPage(page) {
+  switch(page) {
+    case 'home': renderHome(); break;
+    case 'disciplinas': renderDisciplinas(); break;
+    case 'topico': renderTopico(); break;
+    case 'pratica': renderPratica(); break;
+    case 'simulado': renderSimulado(); break;
+    case 'simulado-run': renderSimuladoRun(); break;
+    case 'resultados': renderResultados(); break;
+    case 'progresso': renderProgresso(); break;
+  }
+}
+
+// ===== HOME =====
+function renderHome() {
+  if (!DATA) return;
+  const progress = loadProgress();
+  const totalQ = DATA.disciplinas.reduce((s, d) => s + d.topicos.reduce((s2, t) => s2 + t.questoes.length, 0), 0);
+  const pct = totalQ > 0 ? Math.round((progress.answered / totalQ) * 100) : 0;
+
+  document.getElementById('homeStats').innerHTML = `
+    <div class="stat-card"><div class="stat-number">${totalQ}</div><div class="stat-label">Questões</div></div>
+    <div class="stat-card"><div class="stat-number">${DATA.disciplinas.length}</div><div class="stat-label">Disciplinas</div></div>
+    <div class="stat-card"><div class="stat-number">${progress.answered}</div><div class="stat-label">Respondidas</div></div>
+    <div class="stat-card"><div class="stat-number">${progress.answered > 0 ? Math.round((progress.correct / progress.answered) * 100) : 0}%</div><div class="stat-label">Acertos</div></div>
+  `;
+  document.getElementById('disciplineCount').textContent = DATA.disciplinas.length + ' disponíveis';
+
+  const colors = ['blue', 'purple', 'red', 'green', 'orange'];
+  document.getElementById('homeDisciplines').innerHTML = DATA.disciplinas.map((d, i) => {
+    const qCount = d.topicos.reduce((s, t) => s + t.questoes.length, 0);
+    return `
+      <div class="discipline-card" data-color="${colors[i % colors.length]}" onclick="openDiscipline('${d.id}')">
+        <div class="discipline-icon">${d.icone}</div>
+        <div class="discipline-name">${d.nome}</div>
+        <div class="discipline-meta">
+          <span>${d.topicos.length} tópicos</span>
+          <span>${qCount} questões</span>
+        </div>
+        <div class="discipline-topics">
+          ${d.topicos.map(t => `<span class="topic-chip">${t.nome}</span>`).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ===== DISCIPLINAS =====
+function renderDisciplinas() {
+  if (!DATA) return;
+  const colors = ['blue', 'purple', 'red', 'green', 'orange'];
+  document.getElementById('disciplinasContent').innerHTML = `
+    <div class="section-title">Todas as Disciplinas</div>
+    <div class="disciplines-grid">
+      ${DATA.disciplinas.map((d, i) => {
+        const qCount = d.topicos.reduce((s, t) => s + t.questoes.length, 0);
+        return `
+          <div class="discipline-card" data-color="${colors[i % colors.length]}" onclick="openDiscipline('${d.id}')">
+            <div class="discipline-icon">${d.icone}</div>
+            <div class="discipline-name">${d.nome}</div>
+            <div class="discipline-meta">
+              <span>${d.topicos.length} tópicos</span>
+              <span>${qCount} questões</span>
+            </div>
+            <div class="discipline-topics">
+              ${d.topicos.map(t => `<span class="topic-chip">${t.nome}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function openDiscipline(id) {
+  state.currentDiscipline = id;
+  navigateTo('topico');
+}
+
+// ===== TOPICO =====
+function renderTopico() {
+  if (!DATA || !state.currentDiscipline) return;
+  const disc = DATA.disciplinas.find(d => d.id === state.currentDiscipline);
+  if (!disc) return;
+  const progress = loadProgress();
+
+  document.getElementById('topicoContent').innerHTML = `
+    <button class="back-btn" onclick="goBack()">← Voltar</button>
+    <div class="breadcrumb">
+      <a href="#" onclick="navigateTo('disciplinas')">Disciplinas</a>
+      <span class="sep">›</span>
+      <span>${disc.nome}</span>
+    </div>
+    <div class="section-title">${disc.icone} ${disc.nome}</div>
+    <div class="topic-list">
+      ${disc.topicos.map(t => {
+        const answered = (progress.byTopic && progress.byTopic[t.id]) ? progress.byTopic[t.id].answered : 0;
+        return `
+          <div class="topic-item" onclick="openPractice('${disc.id}', '${t.id}')">
+            <div class="topic-info">
+              <h3>${t.nome}</h3>
+              <p>${t.questoes.length} questões · ${answered} respondidas</p>
+            </div>
+            <span class="topic-arrow">→</span>
+          </div>
+        `;
+      }).join('')}
+    </div>
+    <div style="margin-top: 16px;">
+      <button class="btn btn-primary" onclick="openPracticeAll('${disc.id}')">Praticar todas as questões</button>
+    </div>
+  `;
+}
+
+// ===== PRACTICE =====
+function openPractice(discId, topicId) {
+  state.currentDiscipline = discId;
+  state.currentTopic = topicId;
+  const disc = DATA.disciplinas.find(d => d.id === discId);
+  const topic = disc.topicos.find(t => t.id === topicId);
+  state.practiceQuestions = shuffleArray([...topic.questoes]);
+  state.practiceIndex = 0;
+  state.practiceAnswers = new Array(state.practiceQuestions.length).fill(-1);
+  state.practiceRevealed = false;
+  navigateTo('pratica');
+}
+
+function openPracticeAll(discId) {
+  state.currentDiscipline = discId;
+  state.currentTopic = null;
+  const disc = DATA.disciplinas.find(d => d.id === discId);
+  const allQ = disc.topicos.flatMap(t => t.questoes);
+  state.practiceQuestions = shuffleArray([...allQ]);
+  state.practiceIndex = 0;
+  state.practiceAnswers = new Array(state.practiceQuestions.length).fill(-1);
+  state.practiceRevealed = false;
+  navigateTo('pratica');
+}
+
+function renderPratica() {
+  if (!state.practiceQuestions.length) return;
+  const q = state.practiceQuestions[state.practiceIndex];
+  const disc = DATA.disciplinas.find(d => d.id === state.currentDiscipline);
+  const total = state.practiceQuestions.length;
+  const idx = state.practiceIndex;
+  const selected = state.practiceAnswers[idx];
+  const revealed = state.practiceRevealed;
+  const letters = ['A', 'B', 'C', 'D', 'E'];
+
+  let breadcrumbHtml = `<a href="#" onclick="navigateTo('disciplinas')">Disciplinas</a><span class="sep">›</span>`;
+  if (disc) breadcrumbHtml += `<a href="#" onclick="openDiscipline('${disc.id}')">${disc.nome}</a><span class="sep">›</span>`;
+  if (state.currentTopic) {
+    const topic = disc.topicos.find(t => t.id === state.currentTopic);
+    if (topic) breadcrumbHtml += `<span>${topic.nome}</span>`;
+    else breadcrumbHtml += `<span>Prática</span>`;
+  } else {
+    breadcrumbHtml += `<span>Todas as questões</span>`;
+  }
+
+  document.getElementById('praticaContent').innerHTML = `
+    <button class="back-btn" onclick="goBack()">← Voltar</button>
+    <div class="breadcrumb">${breadcrumbHtml}</div>
+    <div class="question-container">
+      <div class="question-progress">
+        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${((idx + 1) / total) * 100}%"></div></div>
+        <div class="progress-text">${idx + 1} / ${total}</div>
+      </div>
+      <div class="question-card">
+        <div class="question-number">Questão ${idx + 1} de ${total}</div>
+        <div class="question-text">${q.enunciado}</div>
+        <div class="alternatives">
+          ${q.alternativas.map((alt, i) => {
+            let cls = 'alternative';
+            if (revealed) {
+              cls += ' disabled';
+              if (i === q.correta) cls += ' correct';
+              else if (i === selected && i !== q.correta) cls += ' incorrect';
+            } else {
+              if (i === selected) cls += ' selected';
+            }
+            return `<div class="${cls}" onclick="selectPracticeAnswer(${i})">
+              <div class="alt-letter">${letters[i]}</div>
+              <div class="alt-text">${alt}</div>
+            </div>`;
+          }).join('')}
+        </div>
+        ${revealed ? `
+          <div class="explanation-box ${selected === q.correta ? '' : 'wrong'}">
+            <div class="explanation-title">
+              <span class="${selected === q.correta ? 'icon-correct' : 'icon-wrong'}">${selected === q.correta ? '✓' : '✗'}</span>
+              ${selected === q.correta ? 'Resposta Correta!' : `Resposta Incorreta — Correta: ${letters[q.correta]}`}
+            </div>
+            <div class="explanation-text">${q.comentario}</div>
+          </div>
+        ` : ''}
+      </div>
+      <div class="btn-group" style="justify-content: space-between;">
+        <button class="btn btn-secondary" onclick="prevPractice()" ${idx === 0 ? 'disabled style="opacity:0.4;pointer-events:none"' : ''}>← Anterior</button>
+        ${!revealed && selected >= 0 ? `<button class="btn btn-primary" onclick="confirmPractice()">Confirmar</button>` : ''}
+        ${revealed ? `<button class="btn btn-primary" onclick="nextPractice()">${idx < total - 1 ? 'Próxima →' : 'Ver Resultado'}</button>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function selectPracticeAnswer(i) {
+  if (state.practiceRevealed) return;
+  state.practiceAnswers[state.practiceIndex] = i;
+  renderPratica();
+}
+
+function confirmPractice() {
+  state.practiceRevealed = true;
+  const q = state.practiceQuestions[state.practiceIndex];
+  const selected = state.practiceAnswers[state.practiceIndex];
+  const progress = loadProgress();
+  progress.answered = (progress.answered || 0) + 1;
+  if (selected === q.correta) progress.correct = (progress.correct || 0) + 1;
+  // by discipline
+  const dId = state.currentDiscipline;
+  if (!progress.byDiscipline) progress.byDiscipline = {};
+  if (!progress.byDiscipline[dId]) progress.byDiscipline[dId] = { answered: 0, correct: 0 };
+  progress.byDiscipline[dId].answered++;
+  if (selected === q.correta) progress.byDiscipline[dId].correct++;
+  // by topic
+  if (state.currentTopic) {
+    if (!progress.byTopic) progress.byTopic = {};
+    if (!progress.byTopic[state.currentTopic]) progress.byTopic[state.currentTopic] = { answered: 0, correct: 0 };
+    progress.byTopic[state.currentTopic].answered++;
+    if (selected === q.correta) progress.byTopic[state.currentTopic].correct++;
+  }
+  saveProgress(progress);
+  renderPratica();
+}
+
+function nextPractice() {
+  if (state.practiceIndex < state.practiceQuestions.length - 1) {
+    state.practiceIndex++;
+    state.practiceRevealed = state.practiceAnswers[state.practiceIndex] >= 0 && state.practiceRevealed;
+    state.practiceRevealed = false;
+    renderPratica();
+  } else {
+    showPracticeResults();
+  }
+}
+
+function prevPractice() {
+  if (state.practiceIndex > 0) {
+    state.practiceIndex--;
+    state.practiceRevealed = true;
+    renderPratica();
+  }
+}
+
+function showPracticeResults() {
+  const total = state.practiceQuestions.length;
+  let correct = 0;
+  state.practiceQuestions.forEach((q, i) => { if (state.practiceAnswers[i] === q.correta) correct++; });
+  state.resultsData = { questions: state.practiceQuestions, answers: state.practiceAnswers, correct, total, time: 0, isSimulado: false };
+  navigateTo('resultados');
+}
+
+// ===== SIMULADO =====
+function renderSimulado() {
+  if (!DATA) return;
+  document.getElementById('simuladoContent').innerHTML = `
+    <div class="simulado-config">
+      <div class="config-title">Configurar Simulado</div>
+      <div class="config-group">
+        <div class="config-label">Selecione as disciplinas</div>
+        <div class="checkbox-group" id="simDisciplines">
+          ${DATA.disciplinas.map(d => `
+            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+              <input type="checkbox" value="${d.id}" checked>
+              <div class="custom-checkbox">✓</div>
+              <span class="checkbox-text">${d.icone} ${d.nome} (${d.topicos.reduce((s,t)=>s+t.questoes.length,0)} questões)</span>
+            </label>
+          `).join('')}
+        </div>
+      </div>
+      <div class="config-group">
+        <div class="config-label">Número de questões</div>
+        <select class="config-select" id="simCount">
+          <option value="5">5 questões</option>
+          <option value="10" selected>10 questões</option>
+          <option value="15">15 questões</option>
+          <option value="20">20 questões</option>
+          <option value="30">30 questões</option>
+          <option value="0">Todas disponíveis</option>
+        </select>
+      </div>
+      <div class="config-group">
+        <div class="config-label">Tempo limite (minutos) — 0 para sem limite</div>
+        <input type="number" class="config-input" id="simTime" value="30" min="0" max="300">
+      </div>
+      <button class="btn btn-primary btn-lg btn-block" onclick="startSimulado()" style="margin-top: 8px;">Iniciar Simulado</button>
+    </div>
+  `;
+  // init checkbox states
+  setTimeout(() => {
+    document.querySelectorAll('#simDisciplines .checkbox-item').forEach(el => {
+      if (el.querySelector('input').checked) el.classList.add('checked');
+    });
+  }, 10);
+}
+
+function toggleCheckbox(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+}
+
+function startSimulado() {
+  const checked = [...document.querySelectorAll('#simDisciplines input:checked')].map(c => c.value);
+  if (!checked.length) { showToast('Selecione ao menos uma disciplina', 'error'); return; }
+  const count = parseInt(document.getElementById('simCount').value);
+  const time = parseInt(document.getElementById('simTime').value) || 0;
+
+  let pool = [];
+  DATA.disciplinas.filter(d => checked.includes(d.id)).forEach(d => {
+    d.topicos.forEach(t => { t.questoes.forEach(q => pool.push({ ...q, disciplina: d.nome, topico: t.nome })); });
+  });
+
+  pool = shuffleArray(pool);
+  const total = count === 0 ? pool.length : Math.min(count, pool.length);
+  state.simuladoQuestions = pool.slice(0, total);
+  state.simuladoAnswers = new Array(total).fill(-1);
+  state.simuladoIndex = 0;
+  state.simuladoRevealed = false;
+  state.simuladoMode = true;
+  state.simuladoSeconds = 0;
+  state.simuladoTimeLimit = time * 60;
+
+  if (state.simuladoTimer) clearInterval(state.simuladoTimer);
+  state.simuladoTimer = setInterval(() => {
+    state.simuladoSeconds++;
+    updateTimerDisplay();
+    if (state.simuladoTimeLimit > 0 && state.simuladoSeconds >= state.simuladoTimeLimit) {
+      showToast('Tempo esgotado!', 'error');
+      endSimulado();
+    }
+  }, 1000);
+
+  navigateTo('simulado-run');
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('simTimer');
+  if (!el) return;
+  const remaining = state.simuladoTimeLimit > 0 ? state.simuladoTimeLimit - state.simuladoSeconds : state.simuladoSeconds;
+  const m = Math.floor(Math.abs(remaining) / 60);
+  const s = Math.abs(remaining) % 60;
+  el.textContent = (state.simuladoTimeLimit > 0 ? '' : '') + `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  if (state.simuladoTimeLimit > 0 && remaining < 300) el.parentElement.classList.add('warning');
+  else el.parentElement.classList.remove('warning');
+}
+
+function renderSimuladoRun() {
+  const q = state.simuladoQuestions[state.simuladoIndex];
+  const total = state.simuladoQuestions.length;
+  const idx = state.simuladoIndex;
+  const selected = state.simuladoAnswers[idx];
+  const letters = ['A', 'B', 'C', 'D', 'E'];
+  const answeredCount = state.simuladoAnswers.filter(a => a >= 0).length;
+
+  document.getElementById('simuladoRunContent').innerHTML = `
+    <div class="question-container">
+      <div class="simulado-header">
+        <div class="simulado-info">
+          <div class="timer-display">⏱ <span id="simTimer">00:00</span></div>
+          <div style="font-size:0.8rem;color:var(--text-muted)">${answeredCount}/${total} respondidas</div>
+        </div>
+        <button class="btn btn-danger" onclick="confirmEndSimulado()" style="font-size:0.8rem;padding:8px 16px;">Finalizar</button>
+      </div>
+      <div class="question-progress">
+        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${((idx + 1) / total) * 100}%"></div></div>
+        <div class="progress-text">${idx + 1} / ${total}</div>
+      </div>
+      <div class="question-card">
+        <div class="question-number" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>Questão ${idx + 1} de ${total}</span>
+          <span style="font-size:0.65rem;color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:500">${q.disciplina || ''} · ${q.topico || ''}</span>
+        </div>
+        <div class="question-text">${q.enunciado}</div>
+        <div class="alternatives">
+          ${q.alternativas.map((alt, i) => {
+            let cls = 'alternative';
+            if (i === selected) cls += ' selected';
+            return `<div class="${cls}" onclick="selectSimuladoAnswer(${i})">
+              <div class="alt-letter">${letters[i]}</div>
+              <div class="alt-text">${alt}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+      <div class="btn-group" style="justify-content: space-between;">
+        <button class="btn btn-secondary" onclick="prevSimulado()" ${idx === 0 ? 'disabled style="opacity:0.4;pointer-events:none"' : ''}>← Anterior</button>
+        <button class="btn btn-primary" onclick="nextSimulado()">${idx < total - 1 ? 'Próxima →' : 'Finalizar Simulado'}</button>
+      </div>
+      <div class="question-nav-grid">
+        ${state.simuladoQuestions.map((_, i) => {
+          let cls = 'q-nav-btn';
+          if (i === idx) cls += ' current';
+          else if (state.simuladoAnswers[i] >= 0) cls += ' answered';
+          return `<button class="${cls}" onclick="goToSimuladoQ(${i})">${i + 1}</button>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
+  updateTimerDisplay();
+}
+
+function selectSimuladoAnswer(i) {
+  state.simuladoAnswers[state.simuladoIndex] = i;
+  renderSimuladoRun();
+}
+
+function nextSimulado() {
+  if (state.simuladoIndex < state.simuladoQuestions.length - 1) {
+    state.simuladoIndex++;
+    renderSimuladoRun();
+  } else {
+    confirmEndSimulado();
+  }
+}
+
+function prevSimulado() {
+  if (state.simuladoIndex > 0) {
+    state.simuladoIndex--;
+    renderSimuladoRun();
+  }
+}
+
+function goToSimuladoQ(i) {
+  state.simuladoIndex = i;
+  renderSimuladoRun();
+}
+
+function confirmEndSimulado() {
+  const unanswered = state.simuladoAnswers.filter(a => a < 0).length;
+  if (unanswered > 0) {
+    showModal('Finalizar Simulado?', `Você ainda tem ${unanswered} questão(ões) sem resposta. Deseja finalizar mesmo assim?`, () => endSimulado());
+  } else {
+    endSimulado();
+  }
+}
+
+function endSimulado(cancelled = false) {
+  if (state.simuladoTimer) { clearInterval(state.simuladoTimer); state.simuladoTimer = null; }
+  state.simuladoMode = false;
+  if (cancelled) return;
+
+  let correct = 0;
+  state.simuladoQuestions.forEach((q, i) => { if (state.simuladoAnswers[i] === q.correta) correct++; });
+
+  // save progress
+  const progress = loadProgress();
+  progress.simulados = (progress.simulados || 0) + 1;
+  progress.totalTime = (progress.totalTime || 0) + state.simuladoSeconds;
+  state.simuladoQuestions.forEach((q, i) => {
+    if (state.simuladoAnswers[i] >= 0) {
+      progress.answered = (progress.answered || 0) + 1;
+      if (state.simuladoAnswers[i] === q.correta) progress.correct = (progress.correct || 0) + 1;
+    }
+  });
+  saveProgress(progress);
+
+  state.resultsData = {
+    questions: state.simuladoQuestions,
+    answers: state.simuladoAnswers,
+    correct, total: state.simuladoQuestions.length,
+    time: state.simuladoSeconds, isSimulado: true
+  };
+  navigateTo('resultados');
+}
+
+// ===== RESULTS =====
+function renderResultados() {
+  const r = state.resultsData;
+  if (!r) return;
+  const pct = r.total > 0 ? Math.round((r.correct / r.total) * 100) : 0;
+  const scoreClass = pct >= 70 ? 'good' : pct >= 50 ? 'medium' : 'bad';
+  const letters = ['A', 'B', 'C', 'D', 'E'];
+  const m = Math.floor(r.time / 60);
+  const s = r.time % 60;
+
+  let msg = '';
+  if (pct >= 80) msg = 'Excelente desempenho! Continue assim!';
+  else if (pct >= 60) msg = 'Bom resultado! Revise os pontos fracos.';
+  else if (pct >= 40) msg = 'Resultado razoável. Estude mais os tópicos errados.';
+  else msg = 'Precisa melhorar. Revise o conteúdo e tente novamente.';
+
+  document.getElementById('resultadosContent').innerHTML = `
+    <div class="results-card">
+      <div class="results-score ${scoreClass}">
+        ${pct}%
+        <small>de acerto</small>
+      </div>
+      <div class="results-title">${r.isSimulado ? 'Resultado do Simulado' : 'Resultado da Prática'}</div>
+      <div class="results-subtitle">${msg}</div>
+      <div class="results-stats">
+        <div class="result-stat correct-stat">
+          <div class="result-stat-num">${r.correct}</div>
+          <div class="result-stat-label">Corretas</div>
+        </div>
+        <div class="result-stat incorrect-stat">
+          <div class="result-stat-num">${r.total - r.correct}</div>
+          <div class="result-stat-label">Incorretas</div>
+        </div>
+        <div class="result-stat time-stat">
+          <div class="result-stat-num">${r.time > 0 ? `${m}:${String(s).padStart(2,'0')}` : '--'}</div>
+          <div class="result-stat-label">Tempo</div>
+        </div>
+      </div>
+      <div class="btn-group" style="justify-content:center; margin-bottom: 24px;">
+        <button class="btn btn-primary" onclick="navigateTo('home')">Início</button>
+        <button class="btn btn-secondary" onclick="navigateTo('simulado')">Novo Simulado</button>
+      </div>
+      <div class="review-list">
+        <div class="section-title">Revisão das Questões</div>
+        ${r.questions.map((q, i) => {
+          const isCorrect = r.answers[i] === q.correta;
+          const userAns = r.answers[i] >= 0 ? letters[r.answers[i]] : '—';
+          return `
+            <div class="review-item ${isCorrect ? 'review-correct' : 'review-incorrect'}" onclick="this.classList.toggle('expanded')">
+              <div class="review-header">
+                <span class="review-q-num">Questão ${i + 1}</span>
+                <span class="review-badge ${isCorrect ? 'correct-badge' : 'incorrect-badge'}">${isCorrect ? 'Correta' : 'Incorreta'}</span>
+              </div>
+              <div class="review-text">${q.enunciado.substring(0, 120)}${q.enunciado.length > 120 ? '...' : ''}</div>
+              <div class="review-detail">
+                <div class="review-answer"><strong>Sua resposta:</strong> ${userAns}${r.answers[i] >= 0 ? ' — ' + q.alternativas[r.answers[i]] : ' (não respondida)'}</div>
+                <div class="review-answer"><strong>Resposta correta:</strong> ${letters[q.correta]} — ${q.alternativas[q.correta]}</div>
+                <div class="review-explanation">${q.comentario}</div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ===== PROGRESS =====
+function renderProgresso() {
+  if (!DATA) return;
+  const progress = loadProgress();
+  const totalQ = DATA.disciplinas.reduce((s, d) => s + d.topicos.reduce((s2, t) => s2 + t.questoes.length, 0), 0);
+  const pctGlobal = totalQ > 0 ? Math.round((progress.answered / totalQ) * 100) : 0;
+  const acertoPct = progress.answered > 0 ? Math.round((progress.correct / progress.answered) * 100) : 0;
+  const totalMin = Math.floor((progress.totalTime || 0) / 60);
+
+  let disciplineCards = DATA.disciplinas.map(d => {
+    const dp = progress.byDiscipline && progress.byDiscipline[d.id] ? progress.byDiscipline[d.id] : { answered: 0, correct: 0 };
+    const dTotal = d.topicos.reduce((s, t) => s + t.questoes.length, 0);
+    const dPct = dTotal > 0 ? Math.round((dp.answered / dTotal) * 100) : 0;
+    const dAcerto = dp.answered > 0 ? Math.round((dp.correct / dp.answered) * 100) : 0;
+    return `
+      <div class="progress-card">
+        <div class="progress-card-header">
+          <div class="progress-card-icon">${d.icone}</div>
+          <div class="progress-card-title">${d.nome}</div>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-label"><span>Progresso</span><span>${dPct}%</span></div>
+          <div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${dPct}%;background:${d.cor}"></div></div>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-label"><span>Taxa de acerto</span><span>${dAcerto}%</span></div>
+          <div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${dAcerto}%;background:var(--success)"></div></div>
+        </div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-top:8px">${dp.answered} de ${dTotal} questões respondidas</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('progressoContent').innerHTML = `
+    <div class="section-title">Seu Progresso</div>
+    <div class="stats-row" style="margin-bottom:28px">
+      <div class="stat-card"><div class="stat-number">${progress.answered}</div><div class="stat-label">Respondidas</div></div>
+      <div class="stat-card"><div class="stat-number">${acertoPct}%</div><div class="stat-label">Acertos</div></div>
+      <div class="stat-card"><div class="stat-number">${progress.simulados || 0}</div><div class="stat-label">Simulados</div></div>
+      <div class="stat-card"><div class="stat-number">${totalMin}min</div><div class="stat-label">Tempo Total</div></div>
+    </div>
+    <div class="section-title">Por Disciplina</div>
+    <div class="progress-grid">${disciplineCards}</div>
+    <div style="text-align:center;margin-top:24px;">
+      <button class="btn btn-secondary" onclick="confirmResetProgress()">Resetar Progresso</button>
+    </div>
+  `;
+}
+
+function confirmResetProgress() {
+  showModal('Resetar Progresso?', 'Todo o seu progresso será apagado. Esta ação não pode ser desfeita.', () => {
+    localStorage.removeItem('concursoprep_progress');
+    showToast('Progresso resetado com sucesso', 'success');
+    renderProgresso();
+  });
+}
+
+// ===== UTILS =====
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ===== INIT =====
+async function init() {
+  try {
+    const res = await fetch('questoes.json');
+    DATA = await res.json();
+  } catch (e) {
+    console.error('Erro ao carregar questões:', e);
+    showToast('Erro ao carregar banco de questões', 'error');
+    return;
+  }
+  renderHome();
+}
+
+init();
+</script>
+</body>
+</html>

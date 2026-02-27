@@ -1,0 +1,681 @@
+{
+  "disciplinas": [
+    {
+      "id": "dir-constitucional",
+      "nome": "Direito Constitucional",
+      "icone": "⚖️",
+      "cor": "#2563EB",
+      "topicos": [
+        {
+          "id": "principios-fundamentais",
+          "nome": "Princípios Fundamentais",
+          "questoes": [
+            {
+              "id": 1,
+              "enunciado": "De acordo com a Constituição Federal de 1988, a República Federativa do Brasil constitui-se em Estado Democrático de Direito e tem como fundamentos, EXCETO:",
+              "alternativas": [
+                "A soberania",
+                "A cidadania",
+                "A dignidade da pessoa humana",
+                "A garantia do desenvolvimento regional",
+                "O pluralismo político"
+              ],
+              "correta": 3,
+              "comentario": "Os fundamentos da República Federativa do Brasil estão previstos no art. 1º da CF/88: soberania, cidadania, dignidade da pessoa humana, valores sociais do trabalho e da livre iniciativa, e pluralismo político. A garantia do desenvolvimento regional não é fundamento, mas sim um dos objetivos fundamentais (art. 3º, III)."
+            },
+            {
+              "id": 2,
+              "enunciado": "São objetivos fundamentais da República Federativa do Brasil, conforme o art. 3º da Constituição Federal:",
+              "alternativas": [
+                "Construir uma sociedade livre, justa e solidária",
+                "Manter relações com Estados estrangeiros",
+                "Assegurar o exercício dos direitos sociais e individuais",
+                "Garantir a inviolabilidade do direito à vida",
+                "Promover a defesa do consumidor"
+              ],
+              "correta": 0,
+              "comentario": "O art. 3º da CF/88 estabelece como objetivos fundamentais: I - construir uma sociedade livre, justa e solidária; II - garantir o desenvolvimento nacional; III - erradicar a pobreza e a marginalização e reduzir as desigualdades sociais e regionais; IV - promover o bem de todos, sem preconceitos de origem, raça, sexo, cor, idade e quaisquer outras formas de discriminação."
+            },
+            {
+              "id": 3,
+              "enunciado": "Quanto aos princípios que regem as relações internacionais da República Federativa do Brasil, assinale a alternativa INCORRETA:",
+              "alternativas": [
+                "Independência nacional",
+                "Prevalência dos direitos humanos",
+                "Autodeterminação dos povos",
+                "Intervenção em assuntos internos de outros Estados",
+                "Defesa da paz"
+              ],
+              "correta": 3,
+              "comentario": "O art. 4º da CF/88 estabelece os princípios das relações internacionais. O inciso IV prevê a 'não-intervenção' e não a 'intervenção' em assuntos internos de outros Estados. A não-intervenção é princípio basilar das relações internacionais brasileiras."
+            },
+            {
+              "id": 4,
+              "enunciado": "Todo o poder emana do povo, que o exerce por meio de representantes eleitos ou diretamente, nos termos desta Constituição. Este dispositivo consagra o princípio:",
+              "alternativas": [
+                "Da separação dos poderes",
+                "Do Estado Democrático de Direito",
+                "Da soberania popular",
+                "Da legalidade",
+                "Da impessoalidade"
+              ],
+              "correta": 2,
+              "comentario": "O parágrafo único do art. 1º da CF/88 consagra o princípio da soberania popular, estabelecendo que todo poder emana do povo. Este princípio fundamenta a democracia representativa e participativa, permitindo o exercício do poder tanto por representantes eleitos quanto diretamente pelo povo (plebiscito, referendo, iniciativa popular)."
+            },
+            {
+              "id": 5,
+              "enunciado": "A forma federativa de Estado é considerada cláusula pétrea na Constituição Federal de 1988. Isso significa que:",
+              "alternativas": [
+                "Pode ser alterada por emenda constitucional com quórum qualificado",
+                "Pode ser suprimida mediante consulta popular",
+                "Não pode ser objeto de deliberação a proposta de emenda tendente a aboli-la",
+                "Pode ser modificada pelo Poder Judiciário em controle de constitucionalidade",
+                "Pode ser alterada por lei complementar"
+              ],
+              "correta": 2,
+              "comentario": "Conforme o art. 60, §4º, I da CF/88, não será objeto de deliberação a proposta de emenda tendente a abolir a forma federativa de Estado. As cláusulas pétreas representam limitações materiais ao poder de reforma constitucional, protegendo o núcleo essencial da Constituição."
+            }
+          ]
+        },
+        {
+          "id": "direitos-garantias",
+          "nome": "Direitos e Garantias Fundamentais",
+          "questoes": [
+            {
+              "id": 6,
+              "enunciado": "Sobre os direitos e garantias fundamentais previstos no art. 5º da CF/88, é CORRETO afirmar:",
+              "alternativas": [
+                "São aplicáveis apenas aos brasileiros natos",
+                "São aplicáveis aos brasileiros e aos estrangeiros residentes no País",
+                "São aplicáveis exclusivamente aos cidadãos com título de eleitor",
+                "Não se aplicam aos estrangeiros em trânsito pelo território nacional",
+                "São aplicáveis apenas em tempo de paz"
+              ],
+              "correta": 1,
+              "comentario": "O caput do art. 5º da CF/88 estabelece que todos são iguais perante a lei, garantindo-se aos brasileiros e aos estrangeiros residentes no País a inviolabilidade do direito à vida, à liberdade, à igualdade, à segurança e à propriedade. A jurisprudência do STF estende esses direitos também aos estrangeiros em trânsito."
+            },
+            {
+              "id": 7,
+              "enunciado": "O habeas corpus será concedido sempre que alguém sofrer ou se achar ameaçado de sofrer violência ou coação em sua liberdade de locomoção, por ilegalidade ou abuso de poder. Trata-se de:",
+              "alternativas": [
+                "Direito social",
+                "Remédio constitucional",
+                "Direito político",
+                "Princípio administrativo",
+                "Garantia institucional"
+              ],
+              "correta": 1,
+              "comentario": "O habeas corpus (art. 5º, LXVIII, CF/88) é um remédio constitucional, ou seja, uma ação constitucional destinada a proteger direito fundamental. Os remédios constitucionais incluem: habeas corpus, habeas data, mandado de segurança, mandado de injunção e ação popular."
+            },
+            {
+              "id": 8,
+              "enunciado": "Assinale a alternativa que apresenta um direito social previsto no art. 6º da Constituição Federal:",
+              "alternativas": [
+                "Direito de propriedade",
+                "Liberdade de expressão",
+                "Direito à educação",
+                "Inviolabilidade de domicílio",
+                "Direito de petição"
+              ],
+              "correta": 2,
+              "comentario": "O art. 6º da CF/88 prevê como direitos sociais: a educação, a saúde, a alimentação, o trabalho, a moradia, o transporte, o lazer, a segurança, a previdência social, a proteção à maternidade e à infância, a assistência aos desamparados. O direito à educação é expressamente um direito social."
+            },
+            {
+              "id": 9,
+              "enunciado": "A Constituição Federal prevê que ninguém será submetido a tortura nem a tratamento desumano ou degradante. Este direito é considerado:",
+              "alternativas": [
+                "Relativo, podendo ser restringido por lei ordinária",
+                "Absoluto, não admitindo qualquer restrição",
+                "Programático, dependendo de regulamentação",
+                "Disponível, podendo ser renunciado pelo titular",
+                "Condicional, dependendo de decisão judicial"
+              ],
+              "correta": 1,
+              "comentario": "A proibição da tortura e do tratamento desumano ou degradante (art. 5º, III, CF/88) é considerada pela doutrina majoritária como um direito absoluto, que não admite qualquer tipo de restrição ou relativização, diferentemente da maioria dos direitos fundamentais que podem ser limitados em situações de colisão."
+            },
+            {
+              "id": 10,
+              "enunciado": "O mandado de segurança coletivo pode ser impetrado por:",
+              "alternativas": [
+                "Qualquer cidadão brasileiro",
+                "Partido político com representação no Congresso Nacional",
+                "O Ministério Público exclusivamente",
+                "Qualquer pessoa jurídica de direito privado",
+                "O Presidente da República"
+              ],
+              "correta": 1,
+              "comentario": "Conforme o art. 5º, LXX da CF/88, o mandado de segurança coletivo pode ser impetrado por: a) partido político com representação no Congresso Nacional; b) organização sindical, entidade de classe ou associação legalmente constituída e em funcionamento há pelo menos um ano, em defesa dos interesses de seus membros ou associados."
+            }
+          ]
+        },
+        {
+          "id": "organizacao-estado",
+          "nome": "Organização do Estado",
+          "questoes": [
+            {
+              "id": 11,
+              "enunciado": "A organização político-administrativa da República Federativa do Brasil compreende:",
+              "alternativas": [
+                "A União, os Estados e os Municípios",
+                "A União, os Estados, o Distrito Federal e os Municípios, todos autônomos",
+                "A União, os Estados e o Distrito Federal apenas",
+                "A União e os Estados-membros, sendo os Municípios subordinados",
+                "A União, os Territórios e os Municípios"
+              ],
+              "correta": 1,
+              "comentario": "O art. 18 da CF/88 estabelece que a organização político-administrativa da República Federativa do Brasil compreende a União, os Estados, o Distrito Federal e os Municípios, todos autônomos, nos termos desta Constituição. A autonomia dos entes federativos é característica essencial do federalismo brasileiro."
+            },
+            {
+              "id": 12,
+              "enunciado": "Compete privativamente à União legislar sobre:",
+              "alternativas": [
+                "Direito tributário",
+                "Proteção ao meio ambiente",
+                "Direito civil, comercial, penal e processual",
+                "Educação, cultura e desporto",
+                "Proteção à infância e à juventude"
+              ],
+              "correta": 2,
+              "comentario": "O art. 22 da CF/88 estabelece as competências legislativas privativas da União, incluindo direito civil, comercial, penal, processual, eleitoral, agrário, marítimo, aeronáutico, espacial e do trabalho (inciso I). As demais alternativas referem-se a competências concorrentes (art. 24) ou comuns (art. 23)."
+            },
+            {
+              "id": 13,
+              "enunciado": "Sobre a intervenção federal, é CORRETO afirmar que:",
+              "alternativas": [
+                "Pode ser decretada pelo Congresso Nacional",
+                "É medida ordinária de organização do Estado",
+                "Pode ser decretada pelo Presidente da República nos casos previstos na CF",
+                "Independe de qualquer requisito constitucional",
+                "É competência exclusiva do Poder Judiciário"
+              ],
+              "correta": 2,
+              "comentario": "A intervenção federal é medida excepcional prevista nos arts. 34 a 36 da CF/88. Compete ao Presidente da República decretá-la (art. 84, X), nos casos taxativamente previstos no art. 34, como para manter a integridade nacional, repelir invasão estrangeira, pôr termo a grave comprometimento da ordem pública, entre outros."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dir-administrativo",
+      "nome": "Direito Administrativo",
+      "icone": "🏛️",
+      "cor": "#7C3AED",
+      "topicos": [
+        {
+          "id": "principios-admin",
+          "nome": "Princípios da Administração Pública",
+          "questoes": [
+            {
+              "id": 14,
+              "enunciado": "Os princípios expressos da Administração Pública, previstos no art. 37 da CF/88, são conhecidos pelo mnemônico LIMPE. Assinale a alternativa que os apresenta corretamente:",
+              "alternativas": [
+                "Legalidade, Imparcialidade, Moralidade, Publicidade e Eficiência",
+                "Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência",
+                "Legitimidade, Impessoalidade, Moralidade, Proporcionalidade e Eficiência",
+                "Legalidade, Impessoalidade, Motivação, Publicidade e Economicidade",
+                "Legalidade, Isonomia, Moralidade, Publicidade e Efetividade"
+              ],
+              "correta": 1,
+              "comentario": "O art. 37, caput, da CF/88 estabelece que a administração pública direta e indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios obedecerá aos princípios de Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência (LIMPE). O princípio da eficiência foi incluído pela EC nº 19/1998."
+            },
+            {
+              "id": 15,
+              "enunciado": "O princípio da impessoalidade na Administração Pública significa que:",
+              "alternativas": [
+                "O administrador pode agir conforme sua conveniência pessoal",
+                "A Administração deve tratar todos os administrados sem discriminações ou favoritismos",
+                "Os atos administrativos não precisam ser motivados",
+                "A publicidade dos atos é dispensável",
+                "O servidor público pode utilizar símbolos pessoais em obras públicas"
+              ],
+              "correta": 1,
+              "comentario": "O princípio da impessoalidade possui dupla acepção: (1) a Administração deve tratar todos os administrados sem discriminações, favoritismos ou perseguições (igualdade); (2) os atos administrativos são imputáveis ao órgão ou entidade, e não ao agente que os pratica (vedação à promoção pessoal - art. 37, §1º, CF/88)."
+            },
+            {
+              "id": 16,
+              "enunciado": "Sobre o princípio da legalidade aplicado à Administração Pública, é CORRETO afirmar:",
+              "alternativas": [
+                "A Administração pode fazer tudo que a lei não proíbe",
+                "A Administração só pode fazer o que a lei autoriza ou determina",
+                "A Administração pode agir por analogia quando não houver lei",
+                "O princípio da legalidade é idêntico para particulares e Administração",
+                "A Administração pode criar obrigações por ato administrativo sem base legal"
+              ],
+              "correta": 1,
+              "comentario": "Para a Administração Pública, o princípio da legalidade significa que ela só pode fazer o que a lei autoriza ou determina (vinculação positiva à lei). Diferentemente dos particulares, que podem fazer tudo que a lei não proíbe (art. 5º, II, CF/88), a Administração está adstrita ao que a lei expressamente permite."
+            },
+            {
+              "id": 17,
+              "enunciado": "A Administração Pública anulou um ato administrativo que concedia benefício a particular, sem ouvir o interessado. Neste caso, houve violação ao princípio:",
+              "alternativas": [
+                "Da publicidade",
+                "Da eficiência",
+                "Do contraditório e da ampla defesa",
+                "Da hierarquia",
+                "Da supremacia do interesse público"
+              ],
+              "correta": 2,
+              "comentario": "A Súmula Vinculante nº 3 do STF estabelece que nos processos perante o TCU asseguram-se o contraditório e a ampla defesa quando da decisão puder resultar anulação ou revogação de ato administrativo que beneficie o interessado. Este princípio se estende a toda a Administração Pública, conforme art. 5º, LV, CF/88."
+            },
+            {
+              "id": 18,
+              "enunciado": "O princípio da autotutela administrativa permite que a Administração Pública:",
+              "alternativas": [
+                "Revogue atos de outros Poderes",
+                "Anule seus próprios atos quando eivados de ilegalidade e revogue por conveniência",
+                "Delegue competências sem previsão legal",
+                "Ignore decisões judiciais transitadas em julgado",
+                "Crie tributos por ato administrativo"
+              ],
+              "correta": 1,
+              "comentario": "O princípio da autotutela está consagrado na Súmula 473 do STF: 'A Administração pode anular seus próprios atos, quando eivados de vícios que os tornam ilegais, porque deles não se originam direitos; ou revogá-los, por motivo de conveniência ou oportunidade, respeitados os direitos adquiridos, e ressalvada, em todos os casos, a apreciação judicial.'"
+            }
+          ]
+        },
+        {
+          "id": "atos-administrativos",
+          "nome": "Atos Administrativos",
+          "questoes": [
+            {
+              "id": 19,
+              "enunciado": "São atributos do ato administrativo, EXCETO:",
+              "alternativas": [
+                "Presunção de legitimidade",
+                "Imperatividade",
+                "Autoexecutoriedade",
+                "Tipicidade",
+                "Lucratividade"
+              ],
+              "correta": 4,
+              "comentario": "Os atributos dos atos administrativos são: presunção de legitimidade (e veracidade), imperatividade, autoexecutoriedade e tipicidade. A lucratividade não é atributo do ato administrativo, pois a Administração Pública não visa lucro, mas sim o interesse público."
+            },
+            {
+              "id": 20,
+              "enunciado": "A competência, a finalidade, a forma, o motivo e o objeto são:",
+              "alternativas": [
+                "Princípios da Administração Pública",
+                "Atributos do ato administrativo",
+                "Elementos ou requisitos de validade do ato administrativo",
+                "Modalidades de licitação",
+                "Espécies de atos administrativos"
+              ],
+              "correta": 2,
+              "comentario": "Competência, finalidade, forma, motivo e objeto são os cinco elementos (ou requisitos de validade) do ato administrativo, conforme a doutrina clássica e a Lei nº 4.717/65 (Lei da Ação Popular). A ausência ou vício em qualquer desses elementos pode levar à invalidação do ato."
+            },
+            {
+              "id": 21,
+              "enunciado": "A revogação de um ato administrativo:",
+              "alternativas": [
+                "Pode ser feita pelo Poder Judiciário de ofício",
+                "Produz efeitos retroativos (ex tunc)",
+                "Só pode recair sobre atos ilegais",
+                "Produz efeitos prospectivos (ex nunc) e se baseia em conveniência e oportunidade",
+                "Independe de motivação"
+              ],
+              "correta": 3,
+              "comentario": "A revogação é a extinção do ato administrativo por razões de conveniência e oportunidade (mérito administrativo). Produz efeitos ex nunc (prospectivos), ou seja, não retroage. Diferencia-se da anulação, que recai sobre atos ilegais e produz efeitos ex tunc (retroativos). A revogação é competência exclusiva da Administração."
+            }
+          ]
+        },
+        {
+          "id": "licitacoes",
+          "nome": "Licitações e Contratos",
+          "questoes": [
+            {
+              "id": 22,
+              "enunciado": "De acordo com a Lei nº 14.133/2021 (Nova Lei de Licitações), as modalidades de licitação são:",
+              "alternativas": [
+                "Concorrência, tomada de preços, convite, concurso e leilão",
+                "Pregão, concorrência, tomada de preços e convite",
+                "Pregão, concorrência, concurso, leilão e diálogo competitivo",
+                "Pregão, concorrência, convite e leilão",
+                "Concorrência, pregão e credenciamento apenas"
+              ],
+              "correta": 2,
+              "comentario": "A Lei nº 14.133/2021 (Nova Lei de Licitações) prevê cinco modalidades: pregão, concorrência, concurso, leilão e diálogo competitivo (art. 28). As modalidades tomada de preços e convite, previstas na antiga Lei 8.666/93, foram extintas pela nova legislação."
+            },
+            {
+              "id": 23,
+              "enunciado": "A inexigibilidade de licitação ocorre quando:",
+              "alternativas": [
+                "O valor da contratação é inferior ao limite legal",
+                "Há situação de emergência ou calamidade pública",
+                "A competição é inviável, como no caso de fornecedor exclusivo",
+                "A Administração decide por conveniência não licitar",
+                "O objeto é de pequeno valor"
+              ],
+              "correta": 2,
+              "comentario": "A inexigibilidade de licitação (art. 74 da Lei 14.133/2021) ocorre quando a competição é inviável, como nos casos de: fornecedor exclusivo, serviços técnicos especializados de natureza singular com profissionais de notória especialização, e contratação de artista consagrado. Diferencia-se da dispensa, onde a competição é possível mas a lei autoriza a não realização do certame."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "portugues",
+      "nome": "Língua Portuguesa",
+      "icone": "📝",
+      "cor": "#DC2626",
+      "topicos": [
+        {
+          "id": "interpretacao-texto",
+          "nome": "Interpretação de Texto",
+          "questoes": [
+            {
+              "id": 24,
+              "enunciado": "Considere o trecho: 'A despeito das dificuldades enfrentadas, o servidor público manteve sua dedicação ao trabalho.' A expressão 'a despeito de' pode ser substituída, sem alteração de sentido, por:",
+              "alternativas": [
+                "Em razão de",
+                "Por causa de",
+                "Apesar de",
+                "Em virtude de",
+                "Graças a"
+              ],
+              "correta": 2,
+              "comentario": "'A despeito de' é uma locução prepositiva concessiva, que indica oposição ou contraste. Seu significado é equivalente a 'apesar de', 'não obstante', 'malgrado'. As demais alternativas expressam causa, não concessão."
+            },
+            {
+              "id": 25,
+              "enunciado": "No período 'Conquanto o prazo tenha expirado, a Administração decidiu analisar o recurso', a conjunção 'conquanto' expressa ideia de:",
+              "alternativas": [
+                "Causa",
+                "Consequência",
+                "Concessão",
+                "Condição",
+                "Conformidade"
+              ],
+              "correta": 2,
+              "comentario": "'Conquanto' é uma conjunção subordinativa concessiva, equivalente a 'embora', 'ainda que', 'mesmo que'. Introduz uma oração que expressa um fato contrário à ação da oração principal, mas que não impede sua realização. No período, apesar de o prazo ter expirado (fato contrário), a Administração decidiu analisar o recurso."
+            },
+            {
+              "id": 26,
+              "enunciado": "Assinale a alternativa em que a palavra 'que' funciona como pronome relativo:",
+              "alternativas": [
+                "É necessário que todos compareçam à reunião",
+                "Que belo dia para estudar!",
+                "O servidor que foi aprovado tomou posse ontem",
+                "Espero que o resultado saia hoje",
+                "Que horas são?"
+              ],
+              "correta": 2,
+              "comentario": "Na alternativa C, 'que' é pronome relativo, pois retoma o antecedente 'servidor' e introduz uma oração adjetiva ('que foi aprovado'). Nas demais: A) conjunção integrante; B) pronome exclamativo/interjeição; D) conjunção integrante; E) pronome interrogativo."
+            }
+          ]
+        },
+        {
+          "id": "concordancia",
+          "nome": "Concordância Verbal e Nominal",
+          "questoes": [
+            {
+              "id": 27,
+              "enunciado": "Assinale a alternativa em que a concordância verbal está CORRETA:",
+              "alternativas": [
+                "Fazem cinco anos que trabalho aqui",
+                "Houveram muitos candidatos aprovados",
+                "Existem, naquela repartição, vários processos pendentes",
+                "Aluga-se apartamentos neste edifício",
+                "Haviam sido detectado irregularidades no processo"
+              ],
+              "correta": 2,
+              "comentario": "Na alternativa C, o verbo 'existir' concorda com o sujeito 'vários processos pendentes' (plural). Erros: A) 'fazer' indicando tempo é impessoal = 'Faz cinco anos'; B) 'haver' no sentido de existir é impessoal = 'Houve muitos candidatos'; D) com partícula apassivadora, o verbo concorda com o sujeito = 'Alugam-se apartamentos'; E) 'detectadas' (concordância com irregularidades)."
+            },
+            {
+              "id": 28,
+              "enunciado": "Na frase 'É proibido entrada de pessoas não autorizadas', a concordância está:",
+              "alternativas": [
+                "Correta, pois o adjetivo fica invariável quando o sujeito não é determinado",
+                "Incorreta, devendo ser 'É proibida a entrada'",
+                "Correta em qualquer contexto",
+                "Incorreta, devendo ser 'São proibidas entrada'",
+                "Correta apenas na linguagem coloquial"
+              ],
+              "correta": 0,
+              "comentario": "Quando o substantivo sujeito não é precedido de artigo ou outro determinante, as expressões 'é proibido', 'é necessário', 'é bom', 'é preciso' ficam invariáveis. Assim, 'É proibido entrada' (sem artigo) está correto. Se houvesse artigo: 'É proibida a entrada' (com artigo, concorda em gênero). Ambas as formas são aceitas pela gramática normativa."
+            },
+            {
+              "id": 29,
+              "enunciado": "Assinale a alternativa com concordância nominal INCORRETA:",
+              "alternativas": [
+                "Seguem anexas as certidões solicitadas",
+                "A funcionária estava meio cansada",
+                "É necessário paciência para este cargo",
+                "As alunas mesmas resolveram o problema",
+                "Segue anexo as cópias dos documentos"
+              ],
+              "correta": 4,
+              "comentario": "Na alternativa E, 'anexo' deve concordar com 'cópias' (feminino plural): 'Seguem anexas as cópias dos documentos'. Além disso, o verbo deve ir ao plural. Nas demais: A) 'anexas' concorda com 'certidões'; B) 'meio' como advérbio é invariável; C) sem artigo, 'necessário' fica invariável; D) 'mesmas' concorda com 'alunas'."
+            }
+          ]
+        },
+        {
+          "id": "regencia",
+          "nome": "Regência e Crase",
+          "questoes": [
+            {
+              "id": 30,
+              "enunciado": "Assinale a alternativa em que o uso da crase está CORRETO:",
+              "alternativas": [
+                "Refiro-me à Vossa Excelência",
+                "Fui à São Paulo resolver pendências",
+                "O documento foi entregue à ela",
+                "Estou à disposição para esclarecimentos",
+                "Chegaremos à casa em breve"
+              ],
+              "correta": 3,
+              "comentario": "Na alternativa D, a crase está correta: 'à disposição' (preposição 'a' + artigo 'a'). Erros: A) não se usa crase antes de pronomes de tratamento (exceto senhora, senhorita, dona); B) não se usa crase antes de nome de cidade sem determinante; C) não se usa crase antes de pronome pessoal; E) 'casa' sem especificador não admite crase ('Chegaremos a casa')."
+            },
+            {
+              "id": 31,
+              "enunciado": "Quanto à regência verbal, assinale a alternativa CORRETA:",
+              "alternativas": [
+                "Prefiro mais estudar do que trabalhar",
+                "O servidor obedeceu o regulamento interno",
+                "Aspiramos ao cargo de analista judiciário",
+                "Informei o aluno o resultado da prova",
+                "Assisti o filme ontem à noite"
+              ],
+              "correta": 2,
+              "comentario": "Na alternativa C, 'aspirar' no sentido de 'almejar/desejar' é verbo transitivo indireto, regendo a preposição 'a': 'aspiramos ao cargo'. Erros: A) 'preferir' não admite 'mais...do que' = 'Prefiro estudar a trabalhar'; B) 'obedecer' é VTI = 'obedeceu ao regulamento'; D) 'informar' = informei ao aluno o resultado / informei o aluno do resultado; E) 'assistir' (ver) é VTI = 'Assisti ao filme'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "raciocinio-logico",
+      "nome": "Raciocínio Lógico",
+      "icone": "🧮",
+      "cor": "#059669",
+      "topicos": [
+        {
+          "id": "proposicoes",
+          "nome": "Proposições e Conectivos Lógicos",
+          "questoes": [
+            {
+              "id": 32,
+              "enunciado": "Considere a proposição composta: 'Se o candidato estuda, então ele é aprovado.' A negação dessa proposição é:",
+              "alternativas": [
+                "Se o candidato não estuda, então ele não é aprovado",
+                "O candidato estuda e não é aprovado",
+                "O candidato não estuda ou é aprovado",
+                "Se o candidato é aprovado, então ele estuda",
+                "O candidato não estuda e é aprovado"
+              ],
+              "correta": 1,
+              "comentario": "A negação da condicional (P → Q) é: P ∧ ~Q (P e não Q). Ou seja, a negação de 'Se estuda, então é aprovado' é 'Estuda e não é aprovado'. Não se nega uma condicional com outra condicional. A regra é: mantém a primeira e nega a segunda, trocando o conectivo 'se...então' por 'e'."
+            },
+            {
+              "id": 33,
+              "enunciado": "A proposição 'Todo servidor público é concursado' é logicamente equivalente a:",
+              "alternativas": [
+                "Todo concursado é servidor público",
+                "Se é servidor público, então é concursado",
+                "Algum servidor público não é concursado",
+                "Nenhum concursado é servidor público",
+                "Se não é concursado, então é servidor público"
+              ],
+              "correta": 1,
+              "comentario": "A proposição universal afirmativa 'Todo A é B' é logicamente equivalente à condicional 'Se é A, então é B'. Assim, 'Todo servidor público é concursado' equivale a 'Se é servidor público, então é concursado'. A alternativa A é a recíproca (falácia da conversão), não equivalente."
+            },
+            {
+              "id": 34,
+              "enunciado": "Dadas as proposições P: 'Chove' e Q: 'A rua fica molhada', a proposição 'Chove se e somente se a rua fica molhada' é VERDADEIRA quando:",
+              "alternativas": [
+                "P é verdadeira e Q é falsa",
+                "P é falsa e Q é verdadeira",
+                "P e Q têm valores lógicos diferentes",
+                "P e Q têm o mesmo valor lógico (ambas V ou ambas F)",
+                "Apenas quando P é verdadeira"
+              ],
+              "correta": 3,
+              "comentario": "O bicondicional (P ↔ Q) é verdadeiro quando ambas as proposições têm o mesmo valor lógico: ambas verdadeiras ou ambas falsas. É falso quando os valores são diferentes. A tabela-verdade do bicondicional: V↔V=V, V↔F=F, F↔V=F, F↔F=V."
+            },
+            {
+              "id": 35,
+              "enunciado": "A contrapositiva da proposição 'Se estudo, então passo no concurso' é:",
+              "alternativas": [
+                "Se passo no concurso, então estudo",
+                "Se não estudo, então não passo no concurso",
+                "Se não passo no concurso, então não estudo",
+                "Estudo e não passo no concurso",
+                "Não estudo ou passo no concurso"
+              ],
+              "correta": 2,
+              "comentario": "A contrapositiva (ou contrarrecíproca) de P → Q é ~Q → ~P. Assim, a contrapositiva de 'Se estudo, então passo' é 'Se não passo, então não estudo'. A contrapositiva é logicamente equivalente à proposição original. A alternativa A é a recíproca e B é a inversa, que não são equivalentes."
+            }
+          ]
+        },
+        {
+          "id": "conjuntos",
+          "nome": "Conjuntos e Probabilidade",
+          "questoes": [
+            {
+              "id": 36,
+              "enunciado": "Em uma turma de 100 alunos, 60 estudam Direito, 50 estudam Português e 20 estudam ambas as disciplinas. Quantos alunos não estudam nenhuma das duas disciplinas?",
+              "alternativas": [
+                "10",
+                "20",
+                "30",
+                "15",
+                "25"
+              ],
+              "correta": 0,
+              "comentario": "Usando o princípio da inclusão-exclusão: |D ∪ P| = |D| + |P| - |D ∩ P| = 60 + 50 - 20 = 90. Portanto, 100 - 90 = 10 alunos não estudam nenhuma das duas disciplinas. Este é um problema clássico de conjuntos em concursos."
+            },
+            {
+              "id": 37,
+              "enunciado": "Uma urna contém 5 bolas vermelhas, 3 bolas azuis e 2 bolas verdes. Retirando-se uma bola ao acaso, qual a probabilidade de ela NÃO ser vermelha?",
+              "alternativas": [
+                "1/2",
+                "1/5",
+                "3/10",
+                "2/5",
+                "7/10"
+              ],
+              "correta": 0,
+              "comentario": "Total de bolas: 5 + 3 + 2 = 10. Bolas que não são vermelhas: 3 + 2 = 5. Probabilidade = 5/10 = 1/2. Alternativamente: P(não vermelha) = 1 - P(vermelha) = 1 - 5/10 = 5/10 = 1/2."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "informatica",
+      "nome": "Informática",
+      "icone": "💻",
+      "cor": "#EA580C",
+      "topicos": [
+        {
+          "id": "seguranca-info",
+          "nome": "Segurança da Informação",
+          "questoes": [
+            {
+              "id": 38,
+              "enunciado": "São princípios básicos da segurança da informação:",
+              "alternativas": [
+                "Velocidade, capacidade e disponibilidade",
+                "Confidencialidade, integridade e disponibilidade",
+                "Acessibilidade, portabilidade e usabilidade",
+                "Eficiência, eficácia e economicidade",
+                "Autenticidade, velocidade e capacidade"
+              ],
+              "correta": 1,
+              "comentario": "Os três princípios básicos da segurança da informação formam a tríade CID: Confidencialidade (garantia de que a informação é acessível apenas a pessoas autorizadas), Integridade (garantia de que a informação não foi alterada indevidamente) e Disponibilidade (garantia de que a informação está acessível quando necessário). Alguns autores acrescentam Autenticidade e Não-repúdio."
+            },
+            {
+              "id": 39,
+              "enunciado": "O tipo de malware que sequestra dados do computador e exige pagamento de resgate para liberá-los é denominado:",
+              "alternativas": [
+                "Worm",
+                "Trojan",
+                "Spyware",
+                "Ransomware",
+                "Adware"
+              ],
+              "correta": 3,
+              "comentario": "Ransomware é um tipo de malware que criptografa os dados do usuário e exige pagamento de resgate (ransom) para fornecer a chave de descriptografia. Exemplos famosos incluem WannaCry e Petya. Worm se propaga automaticamente; Trojan se disfarça de programa legítimo; Spyware espiona o usuário; Adware exibe propagandas."
+            },
+            {
+              "id": 40,
+              "enunciado": "O phishing é uma técnica de engenharia social que consiste em:",
+              "alternativas": [
+                "Instalar programas espiões no computador da vítima",
+                "Enviar mensagens fraudulentas para obter dados pessoais e financeiros",
+                "Realizar ataques de negação de serviço (DDoS)",
+                "Interceptar comunicações entre dois computadores",
+                "Explorar vulnerabilidades em sistemas operacionais"
+              ],
+              "correta": 1,
+              "comentario": "Phishing é uma técnica de engenharia social em que o atacante envia mensagens (geralmente e-mails, SMS ou mensagens em redes sociais) que se passam por comunicações legítimas de instituições confiáveis, com o objetivo de induzir a vítima a fornecer dados pessoais, senhas, números de cartão de crédito, entre outros."
+            }
+          ]
+        },
+        {
+          "id": "redes-internet",
+          "nome": "Redes e Internet",
+          "questoes": [
+            {
+              "id": 41,
+              "enunciado": "O protocolo utilizado para transferência segura de páginas web, que utiliza criptografia, é o:",
+              "alternativas": [
+                "HTTP",
+                "FTP",
+                "SMTP",
+                "HTTPS",
+                "POP3"
+              ],
+              "correta": 3,
+              "comentario": "HTTPS (HyperText Transfer Protocol Secure) é a versão segura do HTTP, que utiliza criptografia SSL/TLS para proteger a comunicação entre o navegador e o servidor web. HTTP é sem criptografia; FTP é para transferência de arquivos; SMTP é para envio de e-mails; POP3 é para recebimento de e-mails."
+            },
+            {
+              "id": 42,
+              "enunciado": "O endereço IP (Internet Protocol) na versão IPv4 é composto por:",
+              "alternativas": [
+                "32 bits, divididos em 4 octetos",
+                "64 bits, divididos em 8 octetos",
+                "128 bits, divididos em 8 grupos",
+                "16 bits, divididos em 2 octetos",
+                "256 bits, divididos em 4 grupos"
+              ],
+              "correta": 0,
+              "comentario": "O endereço IPv4 é composto por 32 bits, divididos em 4 octetos (grupos de 8 bits), representados em notação decimal separados por pontos (ex: 192.168.1.1). Cada octeto pode variar de 0 a 255. O IPv6, por sua vez, possui 128 bits divididos em 8 grupos de 16 bits em notação hexadecimal."
+            },
+            {
+              "id": 43,
+              "enunciado": "A computação em nuvem (cloud computing) oferece diferentes modelos de serviço. O modelo em que o provedor fornece infraestrutura de hardware virtualizada é denominado:",
+              "alternativas": [
+                "SaaS (Software as a Service)",
+                "PaaS (Platform as a Service)",
+                "IaaS (Infrastructure as a Service)",
+                "DaaS (Desktop as a Service)",
+                "BaaS (Backend as a Service)"
+              ],
+              "correta": 2,
+              "comentario": "IaaS (Infrastructure as a Service) é o modelo de computação em nuvem em que o provedor fornece infraestrutura de hardware virtualizada (servidores, armazenamento, rede). Exemplos: AWS EC2, Azure VMs. SaaS fornece software pronto (Gmail, Office 365); PaaS fornece plataforma de desenvolvimento (Heroku, Google App Engine)."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
