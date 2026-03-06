@@ -31,7 +31,6 @@ from random import sample, randint
 from kivy.metrics import dp
 
 
-
 try:
 	if kivy_platform in ('win', 'linux', 'macosx'):
 		Window.size = (375, 667)
@@ -349,6 +348,7 @@ ScreenManager:
 	Image:
 		id: plan_image
 		source: "images/background3.jpg"
+		source: "images/background5.jpg"
 		allow_stretch: True
 		keep_ratio: False
 		size_hint: 1, 1
@@ -368,6 +368,9 @@ ScreenManager:
 			text_color: "black"
 			line_color: "#cf0a0a"
 			on_release: app.text_hours()
+			md_bg_color: 1, 0, 0, 1
+			pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+			radius: [20, 20, 20, 20]
 		MDLabel:
 			text: 'De'
 			font_size: '18sp'
